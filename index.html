@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sifthen - The Fake Candidate Detector</title>
+    <meta name="description" content="Stop wasting time on AI-generated resumes, fake LinkedIn profiles, and interview imposters. Starting at $39/month.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #000;
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero .tagline {
+            font-size: 24px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #667eea;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .problem h2 {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .quotes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .quote-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        
+        .quote-card p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .quote-card .attribution {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            font-style: normal;
+        }
+        
+        /* Solution Section */
+        .solution {
+            padding: 80px 0;
+        }
+        
+        .solution h2 {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .solution .subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .feature p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .pricing h2 {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .pricing-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+        
+        .founder-deal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .founder-deal h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .founder-deal .price {
+            font-size: 56px;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+        
+        .founder-deal ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+            display: inline-block;
+        }
+        
+        .founder-deal ul li {
+            padding: 10px 0;
+            font-size: 18px;
+        }
+        
+        .founder-deal ul li:before {
+            content: "✓ ";
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .founder-deal .warning {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        .founder-deal .cta-button {
+            background: #fff;
+            color: #667eea;
+            font-size: 20px;
+            padding: 20px 50px;
+            margin-top: 20px;
+        }
+        
+        .pricing-divider {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 40px 0;
+            color: #666;
+        }
+        
+        .pricing-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .pricing-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: #667eea;
+        }
+        
+        .pricing-card.popular {
+            border-color: #667eea;
+            position: relative;
+        }
+        
+        .pricing-card.popular::before {
+            content: "⭐ MOST POPULAR";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: #fff;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .pricing-card .plan-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .pricing-card h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .pricing-card .period {
+            color: #999;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .pricing-card ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-card ul li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .pricing-card .cta-button {
+            background: #667eea;
+            color: #fff;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
+        .pricing-card .cta-button:hover {
+            background: #5568d3;
+        }
+        
+        /* Comparison Section */
+        .comparison {
+            padding: 80px 0;
+        }
+        
+        .comparison h2 {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .comparison-table {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background: #667eea;
+            color: #fff;
+            font-weight: 700;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .check {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .cross {
+            color: #f44336;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .faq h2 {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .faq-item {
+            background: #fff;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .faq-item h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        .faq-item p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            margin: 10px 0;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero .tagline {
+                font-size: 20px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .problem h2, .solution h2, .pricing h2, .comparison h2, .faq h2 {
+                font-size: 32px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .pricing-tiers {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 14px;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Sifthen</a>
+                <nav class="nav-links">
+                    <a href="#problem">Problem</a>
+                    <a href="#solution">Solution</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Sifthen</h1>
+            <div class="tagline">The Fake Candidate Detector</div>
+            <p>Stop wasting time on AI-generated resumes, fake LinkedIn profiles, and interview imposters.</p>
+            <p style="font-size: 28px; font-weight: 700; margin-bottom: 30px;">Starting at $39/month</p>
+            <p style="font-size: 16px; opacity: 0.9;">(Yes, really. Not $500-1,000 like enterprise tools.)</p>
+            <a href="#pricing" class="cta-button">Get Early Access</a>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem">
+        <div class="container">
+            <h2>The Problem is Real</h2>
+            <div class="quotes">
+                <div class="quote-card">
+                    <p>"We have seen a spike in what appears to be fake resumes. LinkedIn will be non-existent, GitHub URL not found, and found a lot of phone numbers were VoIP and commonly in Texas."</p>
+                    <div class="attribution">— Talent Acquisition Manager, Tech Leadership Community</div>
+                </div>
+                <div class="quote-card">
+                    <p>"The number of applicants usually 25-50 but had almost 500 within days. Most were fake candidates trying to game the system."</p>
+                    <div class="attribution">— Engineering Manager, Fortune 500</div>
+                </div>
+                <div class="quote-card">
+                    <p>"Only 19% of managers are confident their hiring process could catch fraudulent applicants. The rest of us are flying blind."</p>
+                    <div class="attribution">— Engineering Leader, 200+ Person Startup</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="solution">
+        <div class="container">
+            <h2>We Catch What Others Miss</h2>
+            <p class="subtitle">Comprehensive fraud detection in 60 seconds</p>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Resume Detection</h3>
+                    <p>Detect ChatGPT/Claude-generated resumes with 95%+ accuracy. See exactly which sections are AI-written.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📧</div>
+                    <h3>Email & Phone Verification</h3>
+                    <p>Verify email validity, check for disposable addresses, detect VoIP numbers. Flag the Texas VoIP scam pattern.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💼</div>
+                    <h3>LinkedIn Verification</h3>
+                    <p>Check profile existence, connection count, account age, and cross-reference with resume details.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎭</div>
+                    <h3>Deepfake Detection</h3>
+                    <p>Identify suspicious video interview patterns and potential interview imposters.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Location Cross-Check</h3>
+                    <p>Verify IP addresses match claimed locations. Detect VPN usage and proxy connections.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Work Authorization Analysis</h3>
+                    <p>Understand visa timelines and sponsorship costs. Know if they'll need H-1B sponsorship and when.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Pricing That Makes Sense</h2>
+            <p class="pricing-subtitle">(Unlike Enterprise Tools That Cost $500-1,000/Month)</p>
+            
+            <!-- Founder's Deal -->
+            <div class="founder-deal">
+                <h3>⚡ FOUNDER'S LIFETIME DEAL</h3>
+                <p style="font-size: 20px; opacity: 0.95;">Pay once. Use forever.</p>
+                <div class="price">$297</div>
+                <p style="font-size: 18px; margin-bottom: 30px;">One-time payment</p>
+                <ul>
+                    <li>100 candidate scans per month (FOREVER)</li>
+                    <li>All fraud detection features</li>
+                    <li>Email + Phone + AI + LinkedIn verification</li>
+                    <li>Priority support</li>
+                    <li>Lock in this price before we raise it</li>
+                    <li>ALL future features included</li>
+                </ul>
+                <div class="warning">⚠️ Limited to first 50 customers only</div>
+                <p style="font-size: 16px; margin-top: 20px;">Regular price: $99/month ($1,188/year)<br>You save: $891 in first year alone</p>
+                <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="cta-button" target="_blank">Claim Lifetime Access - $297</a>
+            </div>
+            
+            <div class="pricing-divider">OR Choose Monthly Pricing:</div>
+            
+            <!-- Monthly Plans -->
+            <div class="pricing-tiers">
+                <div class="pricing-card">
+                    <div class="plan-icon">🚀</div>
+                    <h3>Starter</h3>
+                    <div class="price">$39</div>
+                    <div class="period">/month</div>
+                    <ul>
+                        <li>30 candidate scans/month</li>
+                        <li>All fraud detection features</li>
+                        <li>Email & phone verification</li>
+                        <li>LinkedIn verification</li>
+                        <li>AI resume detection</li>
+                        <li>Email support</li>
+                        <li>Cancel anytime</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/dRmeVf4xo2WK67s95G1VK01" class="cta-button" target="_blank">Start 14-Day Free Trial</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="plan-icon">💼</div>
+                    <h3>Professional</h3>
+                    <div class="price">$99</div>
+                    <div class="period">/month</div>
+                    <ul>
+                        <li>100 candidate scans/month</li>
+                        <li>Everything in Starter, PLUS:</li>
+                        <li>Advanced fraud patterns</li>
+                        <li>Work authorization analysis</li>
+                        <li>Priority support</li>
+                        <li>Detailed evidence reports</li>
+                        <li>Export to CSV</li>
+                        <li>Cancel anytime</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/5kQeVf8NEfJw7bweq01VK02" class="cta-button" target="_blank">Start 14-Day Free Trial</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="plan-icon">🏢</div>
+                    <h3>Business</h3>
+                    <div class="price">$199</div>
+                    <div class="period">/month</div>
+                    <ul>
+                        <li>300 candidate scans/month</li>
+                        <li>Everything in Professional, PLUS:</li>
+                        <li>ATS integration</li>
+                        <li>Team accounts (up to 5 users)</li>
+                        <li>API access</li>
+                        <li>Custom fraud rules</li>
+                        <li>Dedicated support</li>
+                        <li>Cancel anytime</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03" class="cta-button" target="_blank">Start 14-Day Free Trial</a>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 40px; color: #666;">All plans include 14-day free trial. No credit card required to test. Cancel anytime.</p>
+            <p style="text-align: center; margin-top: 20px; font-size: 18px; color: #667eea; font-weight: 600;">💡 Compare: Phenom charges $500-1,000/month for enterprise-only. We start at $39/month for everyone.</p>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section id="comparison" class="comparison">
+        <div class="container">
+            <h2>How We Compare to Enterprise Tools</h2>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Sifthen</th>
+                            <th>Phenom</th>
+                            <th>Greenhouse</th>
+                            <th>Crosschq</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AI Resume Detection</strong></td>
+                            <td class="check">✓ Day 1</td>
+                            <td class="cross">✗ Coming</td>
+                            <td class="cross">⚠ Vague</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interview Fraud Detection</strong></td>
+                            <td class="check">✓ Day 1</td>
+                            <td class="check">✓</td>
+                            <td class="cross">✗</td>
+                            <td class="cross">✗</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Works with ANY ATS</strong></td>
+                            <td class="check">✓</td>
+                            <td class="cross">✗ Phenom only</td>
+                            <td class="cross">✗ Greenhouse only</td>
+                            <td class="cross">⚠ Limited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Starting Price</strong></td>
+                            <td class="check"><strong>$39/mo</strong></td>
+                            <td class="cross">$500-1,000/mo</td>
+                            <td class="cross">Bundled $15K/yr</td>
+                            <td class="cross">$399/mo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Free Trial</strong></td>
+                            <td class="check">✓ 14 days</td>
+                            <td class="cross">✗</td>
+                            <td class="cross">✗</td>
+                            <td class="cross">✗</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Setup Time</strong></td>
+                            <td class="check">< 5 minutes</td>
+                            <td class="cross">Weeks</td>
+                            <td class="cross">Phased rollout</td>
+                            <td class="cross">Days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mid-Market Friendly</strong></td>
+                            <td class="check">✓</td>
+                            <td class="cross">✗ Enterprise</td>
+                            <td class="cross">✗ Enterprise</td>
+                            <td class="cross">⚠</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3>How does Sifthen detect AI-generated resumes?</h3>
+                <p>We use advanced language models (GPT-4) to analyze writing patterns, identify templated content, and detect common AI-generation signatures. Our system shows you exactly which sections appear AI-generated with specific evidence.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>What is the Founder's Lifetime Deal?</h3>
+                <p>Pay $297 once and get access forever. You'll receive 100 candidate scans per month for life, including all future features we add. This is limited to the first 50 customers only and will never be offered again at this price.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>How long does it take to scan a candidate?</h3>
+                <p>Our system analyzes candidates in real-time - typically under 60 seconds. You'll get an instant fraud risk score plus detailed evidence for any red flags detected.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Do I need to install anything?</h3>
+                <p>No installation required. Sifthen works directly in your browser. Just upload a resume or paste a LinkedIn URL and get instant results. We'll add ATS integrations (Greenhouse, Lever, etc.) in the coming months.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>What if I need more scans than my plan includes?</h3>
+                <p>You can upgrade to a higher tier anytime, or purchase additional scan credits at $2 per scan. We'll notify you before you hit your limit so there are no surprises.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Can I cancel anytime?</h3>
+                <p>Yes! Monthly plans can be cancelled anytime with no penalties or fees. Your access continues until the end of your current billing period.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>How is this different from TurboCheck or Greenhouse?</h3>
+                <p>We're 80-95% cheaper ($39-199 vs $500-1,000/month), work with any ATS (not locked into one platform), and include work authorization analysis that competitors don't offer. Plus we focus on AI-generated resume detection from day one.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Is this legal? What about discrimination laws?</h3>
+                <p>Yes, our tool is 100% legal. We provide informational analysis only - you make all hiring decisions. We never recommend rejecting candidates, and all our checks are based on publicly available data and pattern analysis. Work authorization analysis is provided for business planning purposes (understanding sponsorship costs), which is a legitimate business consideration.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>What about false positives?</h3>
+                <p>Our AI detection has <2% false positive rate. We show you specific evidence for every flag, not just scores, so you can make informed decisions. When in doubt, we recommend manual review rather than automatic rejection.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Who built Sifthen?</h3>
+                <p>Built by a recruiter tired of wasting time on fake candidates. After seeing the problem firsthand in tech leadership communities, we built the tool we wished existed - affordable, comprehensive, and built for how recruiters actually work.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>Sifthen</strong> - The Fake Candidate Detector</p>
+            <p>Contact: <a href="mailto:siftheninfo@gmail.com">siftheninfo@gmail.com</a></p>
+            <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">&copy; 2025 Sifthen. All rights reserved.</p>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 20px;">This service is informational only. Employers are responsible for all hiring decisions and must comply with applicable anti-discrimination laws.</p>
+        </div>
+    </footer>
+</body>
+</html>

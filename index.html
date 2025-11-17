@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sifthen - The Fake Candidate Detector</title>
-    <meta name="description" content="Stop wasting time on AI-generated resumes, fake LinkedIn profiles, and interview imposters. Starting at $39/month.">
+    <meta name="description" content="Detect AI-generated resumes, fake LinkedIn profiles, and interview imposters. Early access with 24-hour expert review.">
     <style>
         * {
             margin: 0;
@@ -49,6 +49,16 @@
             text-decoration: none;
         }
         
+        .beta-badge {
+            background: #667eea;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
         .nav-links a {
             color: #fff;
             text-decoration: none;
@@ -78,9 +88,16 @@
         
         .hero .tagline {
             font-size: 24px;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             opacity: 0.95;
             font-weight: 500;
+        }
+        
+        .hero .early-access-note {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 400;
         }
         
         .hero p {
@@ -121,6 +138,30 @@
             text-align: center;
             margin-bottom: 50px;
             font-weight: 700;
+        }
+        
+        .stat-callout {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .stat-callout p {
+            font-size: 18px;
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .stat-callout .source {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            font-style: normal;
         }
         
         .quotes {
@@ -197,10 +238,54 @@
             line-height: 1.8;
         }
         
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .how-it-works h2 {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 700;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .step {
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .step p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
         /* Pricing Section */
         .pricing {
             padding: 80px 0;
-            background: #f8f9fa;
         }
         
         .pricing h2 {
@@ -374,56 +459,6 @@
             background: #5568d3;
         }
         
-        /* Comparison Section */
-        .comparison {
-            padding: 80px 0;
-        }
-        
-        .comparison h2 {
-            font-size: 42px;
-            text-align: center;
-            margin-bottom: 50px;
-            font-weight: 700;
-        }
-        
-        .comparison-table {
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        th, td {
-            padding: 20px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        th {
-            background: #667eea;
-            color: #fff;
-            font-weight: 700;
-        }
-        
-        tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .check {
-            color: #4caf50;
-            font-weight: bold;
-        }
-        
-        .cross {
-            color: #f44336;
-        }
-        
         /* FAQ Section */
         .faq {
             padding: 80px 0;
@@ -492,7 +527,7 @@
                 font-size: 16px;
             }
             
-            .problem h2, .solution h2, .pricing h2, .comparison h2, .faq h2 {
+            .problem h2, .solution h2, .pricing h2, .faq h2, .how-it-works h2 {
                 font-size: 32px;
             }
             
@@ -503,14 +538,6 @@
             .pricing-tiers {
                 grid-template-columns: 1fr;
             }
-            
-            table {
-                font-size: 14px;
-            }
-            
-            th, td {
-                padding: 10px;
-            }
         }
     </style>
 </head>
@@ -519,7 +546,10 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">Sifthen</a>
+                <div>
+                    <a href="#" class="logo">Sifthen</a>
+                    <span class="beta-badge">🚀 Early Access</span>
+                </div>
                 <nav class="nav-links">
                     <a href="#problem">Problem</a>
                     <a href="#solution">Solution</a>
@@ -535,9 +565,9 @@
         <div class="container">
             <h1>Sifthen</h1>
             <div class="tagline">The Fake Candidate Detector</div>
+            <div class="early-access-note">⚡ Early Access - Expert review with 24-hour turnaround</div>
             <p>Stop wasting time on AI-generated resumes, fake LinkedIn profiles, and interview imposters.</p>
             <p style="font-size: 28px; font-weight: 700; margin-bottom: 30px;">Starting at $39/month</p>
-            <p style="font-size: 16px; opacity: 0.9;">(Yes, really. Not $500-1,000 like enterprise tools.)</p>
             <a href="#pricing" class="cta-button">Get Early Access</a>
         </div>
     </section>
@@ -546,18 +576,20 @@
     <section id="problem" class="problem">
         <div class="container">
             <h2>The Problem is Real</h2>
+            
+            <div class="stat-callout">
+                <p>"Gartner predicts that by 2028, one in four candidate profiles worldwide will be fake."</p>
+                <div class="source">— Gartner Research</div>
+            </div>
+            
             <div class="quotes">
                 <div class="quote-card">
                     <p>"We have seen a spike in what appears to be fake resumes. LinkedIn will be non-existent, GitHub URL not found, and found a lot of phone numbers were VoIP and commonly in Texas."</p>
-                    <div class="attribution">— Talent Acquisition Manager, Tech Leadership Community</div>
+                    <div class="attribution">— Director of Engineering, Tech Leadership Community</div>
                 </div>
                 <div class="quote-card">
                     <p>"The number of applicants usually 25-50 but had almost 500 within days. Most were fake candidates trying to game the system."</p>
-                    <div class="attribution">— Engineering Manager, Fortune 500</div>
-                </div>
-                <div class="quote-card">
-                    <p>"Only 19% of managers are confident their hiring process could catch fraudulent applicants. The rest of us are flying blind."</p>
-                    <div class="attribution">— Engineering Leader, 200+ Person Startup</div>
+                    <div class="attribution">— Director of Engineering, Tech Leadership Community</div>
                 </div>
             </div>
         </div>
@@ -567,17 +599,17 @@
     <section id="solution" class="solution">
         <div class="container">
             <h2>We Catch What Others Miss</h2>
-            <p class="subtitle">Comprehensive fraud detection in 60 seconds</p>
+            <p class="subtitle">Expert analysis with 24-hour turnaround</p>
             <div class="features">
                 <div class="feature">
                     <div class="feature-icon">🤖</div>
                     <h3>AI Resume Detection</h3>
-                    <p>Detect ChatGPT/Claude-generated resumes with 95%+ accuracy. See exactly which sections are AI-written.</p>
+                    <p>Detect ChatGPT/Claude-generated resumes. We show you exactly which sections are AI-written with specific evidence.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📧</div>
                     <h3>Email & Phone Verification</h3>
-                    <p>Verify email validity, check for disposable addresses, detect VoIP numbers. Flag the Texas VoIP scam pattern.</p>
+                    <p>Verify email validity, check for disposable addresses, detect VoIP numbers. Flag suspicious patterns like the Texas VoIP scam.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">💼</div>
@@ -585,19 +617,43 @@
                     <p>Check profile existence, connection count, account age, and cross-reference with resume details.</p>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">🎭</div>
-                    <h3>Deepfake Detection</h3>
-                    <p>Identify suspicious video interview patterns and potential interview imposters.</p>
-                </div>
-                <div class="feature">
                     <div class="feature-icon">🌍</div>
                     <h3>Location Cross-Check</h3>
-                    <p>Verify IP addresses match claimed locations. Detect VPN usage and proxy connections.</p>
+                    <p>Verify claimed locations match available data. Detect suspicious patterns and inconsistencies.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📊</div>
                     <h3>Work Authorization Analysis</h3>
                     <p>Understand visa timelines and sponsorship costs. Know if they'll need H-1B sponsorship and when.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">👤</div>
+                    <h3>Expert Human Review</h3>
+                    <p>Every candidate is personally reviewed by our team. You get detailed evidence, not just scores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Email Candidate Info</h3>
+                    <p>Send us the candidate's resume, LinkedIn URL, email, and phone number to siftheninfo@gmail.com</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>We Analyze</h3>
+                    <p>Our team uses AI tools + manual verification to check for fraud patterns and red flags</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Detailed Report</h3>
+                    <p>Receive a comprehensive fraud report within 24 hours with evidence and recommendations</p>
                 </div>
             </div>
         </div>
@@ -606,8 +662,8 @@
     <!-- Pricing Section -->
     <section id="pricing" class="pricing">
         <div class="container">
-            <h2>Pricing That Makes Sense</h2>
-            <p class="pricing-subtitle">(Unlike Enterprise Tools That Cost $500-1,000/Month)</p>
+            <h2>Early Access Pricing</h2>
+            <p class="pricing-subtitle">Lock in special pricing before we launch automation</p>
             
             <!-- Founder's Deal -->
             <div class="founder-deal">
@@ -616,15 +672,16 @@
                 <div class="price">$297</div>
                 <p style="font-size: 18px; margin-bottom: 30px;">One-time payment</p>
                 <ul>
-                    <li>100 candidate scans per month (FOREVER)</li>
-                    <li>All fraud detection features</li>
+                    <li>20 candidate scans per month (FOREVER)</li>
+                    <li>Expert human review + AI analysis</li>
+                    <li>24-hour turnaround</li>
                     <li>Email + Phone + AI + LinkedIn verification</li>
                     <li>Priority support</li>
-                    <li>Lock in this price before we raise it</li>
-                    <li>ALL future features included</li>
+                    <li>Lock in this price before automation launches</li>
+                    <li>ALL future features included (instant scanning, dashboard, API)</li>
                 </ul>
                 <div class="warning">⚠️ Limited to first 50 customers only</div>
-                <p style="font-size: 16px; margin-top: 20px;">Regular price: $99/month ($1,188/year)<br>You save: $891 in first year alone</p>
+                <p style="font-size: 16px; margin-top: 20px;">When automation launches (Q1 2026), monthly equivalent would be $99/month<br>You save $891+ in first year alone</p>
                 <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="cta-button" target="_blank">Claim Lifetime Access - $297</a>
             </div>
             
@@ -638,8 +695,9 @@
                     <div class="price">$39</div>
                     <div class="period">/month</div>
                     <ul>
-                        <li>30 candidate scans/month</li>
-                        <li>All fraud detection features</li>
+                        <li>10 candidate scans/month</li>
+                        <li>Expert review + AI analysis</li>
+                        <li>24-hour turnaround</li>
                         <li>Email & phone verification</li>
                         <li>LinkedIn verification</li>
                         <li>AI resume detection</li>
@@ -655,11 +713,11 @@
                     <div class="price">$99</div>
                     <div class="period">/month</div>
                     <ul>
-                        <li>100 candidate scans/month</li>
+                        <li>30 candidate scans/month</li>
                         <li>Everything in Starter, PLUS:</li>
-                        <li>Advanced fraud patterns</li>
+                        <li>Advanced fraud pattern detection</li>
                         <li>Work authorization analysis</li>
-                        <li>Priority support</li>
+                        <li>Priority support (12hr response)</li>
                         <li>Detailed evidence reports</li>
                         <li>Export to CSV</li>
                         <li>Cancel anytime</li>
@@ -673,92 +731,21 @@
                     <div class="price">$199</div>
                     <div class="period">/month</div>
                     <ul>
-                        <li>300 candidate scans/month</li>
+                        <li>75 candidate scans/month</li>
                         <li>Everything in Professional, PLUS:</li>
-                        <li>ATS integration</li>
                         <li>Team accounts (up to 5 users)</li>
-                        <li>API access</li>
                         <li>Custom fraud rules</li>
-                        <li>Dedicated support</li>
+                        <li>Dedicated support (6hr response)</li>
+                        <li>Weekly fraud trend reports</li>
+                        <li>Phone support</li>
                         <li>Cancel anytime</li>
                     </ul>
                     <a href="https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03" class="cta-button" target="_blank">Start 14-Day Free Trial</a>
                 </div>
             </div>
             
-            <p style="text-align: center; margin-top: 40px; color: #666;">All plans include 14-day free trial. No credit card required to test. Cancel anytime.</p>
-            <p style="text-align: center; margin-top: 20px; font-size: 18px; color: #667eea; font-weight: 600;">💡 Compare: Phenom charges $500-1,000/month for enterprise-only. We start at $39/month for everyone.</p>
-        </div>
-    </section>
-
-    <!-- Comparison Section -->
-    <section id="comparison" class="comparison">
-        <div class="container">
-            <h2>How We Compare to Enterprise Tools</h2>
-            <div class="comparison-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Sifthen</th>
-                            <th>Phenom</th>
-                            <th>Greenhouse</th>
-                            <th>Crosschq</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>AI Resume Detection</strong></td>
-                            <td class="check">✓ Day 1</td>
-                            <td class="cross">✗ Coming</td>
-                            <td class="cross">⚠ Vague</td>
-                            <td class="check">✓</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Interview Fraud Detection</strong></td>
-                            <td class="check">✓ Day 1</td>
-                            <td class="check">✓</td>
-                            <td class="cross">✗</td>
-                            <td class="cross">✗</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Works with ANY ATS</strong></td>
-                            <td class="check">✓</td>
-                            <td class="cross">✗ Phenom only</td>
-                            <td class="cross">✗ Greenhouse only</td>
-                            <td class="cross">⚠ Limited</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Starting Price</strong></td>
-                            <td class="check"><strong>$39/mo</strong></td>
-                            <td class="cross">$500-1,000/mo</td>
-                            <td class="cross">Bundled $15K/yr</td>
-                            <td class="cross">$399/mo</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Free Trial</strong></td>
-                            <td class="check">✓ 14 days</td>
-                            <td class="cross">✗</td>
-                            <td class="cross">✗</td>
-                            <td class="cross">✗</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Setup Time</strong></td>
-                            <td class="check">< 5 minutes</td>
-                            <td class="cross">Weeks</td>
-                            <td class="cross">Phased rollout</td>
-                            <td class="cross">Days</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mid-Market Friendly</strong></td>
-                            <td class="check">✓</td>
-                            <td class="cross">✗ Enterprise</td>
-                            <td class="cross">✗ Enterprise</td>
-                            <td class="cross">⚠</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <p style="text-align: center; margin-top: 40px; color: #666;">All plans include 14-day free trial. Credit card required. Cancel anytime.</p>
+            <p style="text-align: center; margin-top: 20px; font-size: 16px; color: #667eea; font-weight: 600;">💡 Early access customers lock in these prices for life, even after automation launches</p>
         </div>
     </section>
 
@@ -769,27 +756,27 @@
             
             <div class="faq-item">
                 <h3>How does Sifthen detect AI-generated resumes?</h3>
-                <p>We use advanced language models (GPT-4) to analyze writing patterns, identify templated content, and detect common AI-generation signatures. Our system shows you exactly which sections appear AI-generated with specific evidence.</p>
+                <p>We use ChatGPT combined with manual expert review to analyze writing patterns, identify templated content, and detect AI-generation signatures. You receive a detailed report showing which sections appear AI-generated with specific evidence.</p>
             </div>
             
             <div class="faq-item">
                 <h3>What is the Founder's Lifetime Deal?</h3>
-                <p>Pay $297 once and get access forever. You'll receive 100 candidate scans per month for life, including all future features we add. This is limited to the first 50 customers only and will never be offered again at this price.</p>
+                <p>Pay $297 once and get access forever. You'll receive 20 candidate scans per month for life, including all future features we add (instant scanning, automated dashboard, API access). This is limited to the first 50 customers only and locks in your pricing before automation launches.</p>
             </div>
             
             <div class="faq-item">
                 <h3>How long does it take to scan a candidate?</h3>
-                <p>Our system analyzes candidates in real-time - typically under 60 seconds. You'll get an instant fraud risk score plus detailed evidence for any red flags detected.</p>
+                <p>Currently 24-hour turnaround during early access. We personally review each candidate to ensure quality results. Instant automated scanning launches Q1 2026, and you'll automatically get access.</p>
             </div>
             
             <div class="faq-item">
-                <h3>Do I need to install anything?</h3>
-                <p>No installation required. Sifthen works directly in your browser. Just upload a resume or paste a LinkedIn URL and get instant results. We'll add ATS integrations (Greenhouse, Lever, etc.) in the coming months.</p>
+                <h3>How do I submit candidates for analysis?</h3>
+                <p>Email candidate information to siftheninfo@gmail.com including: Resume (PDF or text), LinkedIn URL, Email address, and Phone number. We'll send you a detailed fraud report within 24 hours.</p>
             </div>
             
             <div class="faq-item">
                 <h3>What if I need more scans than my plan includes?</h3>
-                <p>You can upgrade to a higher tier anytime, or purchase additional scan credits at $2 per scan. We'll notify you before you hit your limit so there are no surprises.</p>
+                <p>You can upgrade to a higher tier anytime, or purchase additional scans at $2 per candidate. We'll notify you before you hit your limit so there are no surprises.</p>
             </div>
             
             <div class="faq-item">
@@ -798,23 +785,23 @@
             </div>
             
             <div class="faq-item">
-                <h3>How is this different from TurboCheck or Greenhouse?</h3>
-                <p>We're 80-95% cheaper ($39-199 vs $500-1,000/month), work with any ATS (not locked into one platform), and include work authorization analysis that competitors don't offer. Plus we focus on AI-generated resume detection from day one.</p>
-            </div>
-            
-            <div class="faq-item">
                 <h3>Is this legal? What about discrimination laws?</h3>
-                <p>Yes, our tool is 100% legal. We provide informational analysis only - you make all hiring decisions. We never recommend rejecting candidates, and all our checks are based on publicly available data and pattern analysis. Work authorization analysis is provided for business planning purposes (understanding sponsorship costs), which is a legitimate business consideration.</p>
+                <p>Yes, our service is 100% legal. We provide informational analysis only - you make all hiring decisions. We never recommend rejecting candidates, and all our checks are based on publicly available data and pattern analysis. Work authorization analysis is provided for business planning purposes (understanding sponsorship costs), which is a legitimate business consideration.</p>
             </div>
             
             <div class="faq-item">
                 <h3>What about false positives?</h3>
-                <p>Our AI detection has <2% false positive rate. We show you specific evidence for every flag, not just scores, so you can make informed decisions. When in doubt, we recommend manual review rather than automatic rejection.</p>
+                <p>Our combined AI + human review approach minimizes false positives. We show you specific evidence for every flag, not just scores, so you can make informed decisions. When in doubt, we recommend manual review rather than automatic rejection.</p>
             </div>
             
             <div class="faq-item">
                 <h3>Who built Sifthen?</h3>
-                <p>Built by a recruiter tired of wasting time on fake candidates. After seeing the problem firsthand in tech leadership communities, we built the tool we wished existed - affordable, comprehensive, and built for how recruiters actually work.</p>
+                <p>Built by a recruiter tired of wasting time on fake candidates. After seeing the problem firsthand in tech leadership communities, we built the affordable solution we wished existed for mid-market companies.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>When will automation be ready?</h3>
+                <p>We're building automated instant scanning for Q1 2026. Early access customers get grandfathered into their current pricing when we launch automation - you're essentially getting a discount for helping us validate the product. Plus you get priority access to all new features.</p>
             </div>
         </div>
     </section>

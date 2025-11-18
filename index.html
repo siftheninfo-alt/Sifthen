@@ -102,17 +102,17 @@
         .hero .subtitle {
             font-size: 24px;
             margin-bottom: 20px;
-            opacity: 0.95;
-            font-weight: 400;
+            font-weight: 500;
+            color: white;
         }
 
         .hero .description {
             font-size: 18px;
             margin-bottom: 40px;
-            opacity: 0.9;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .cta-buttons {
@@ -444,17 +444,37 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             transition: transform 0.3s, box-shadow 0.3s;
             border: 2px solid transparent;
+            position: relative;
         }
 
         .pricing-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
-            border-color: #667eea;
         }
 
         .pricing-card.featured {
             border-color: #667eea;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.25);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .plan-name {
@@ -474,6 +494,13 @@
         .price span {
             font-size: 18px;
             color: #666;
+            font-weight: 500;
+        }
+
+        .turnaround {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
             font-weight: 500;
         }
 
@@ -582,6 +609,10 @@
             .nav-links {
                 display: none;
             }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
@@ -618,7 +649,7 @@
             <p>Trusted By Forward-Thinking Recruiters</p>
             <div class="badges">
                 <span class="badge">🔒 Secure & Confidential</span>
-                <span class="badge">⚡ 24-Hour Turnaround</span>
+                <span class="badge">⚡ 24-48 Hour Turnaround</span>
                 <span class="badge">✓ Expert Human Review</span>
             </div>
         </div>
@@ -676,7 +707,7 @@
     <section id="solution" class="solution">
         <div class="container">
             <h2>We Catch What Others Miss</h2>
-            <p class="subtitle">Multi-layer verification with 24-hour turnaround</p>
+            <p class="subtitle">Multi-layer verification with fast turnaround</p>
 
             <div class="solution-grid">
                 <div class="solution-card">
@@ -736,7 +767,7 @@
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3>Get Detailed Report</h3>
-                    <p>Receive a comprehensive fraud report within 24 hours with evidence and recommendations</p>
+                    <p>Receive a comprehensive fraud report within 24-48 hours with evidence and recommendations</p>
                 </div>
             </div>
         </div>
@@ -752,57 +783,59 @@
                 <div class="pricing-card">
                     <div class="plan-name">Starter</div>
                     <div class="price">$39<span>/month</span></div>
+                    <div class="turnaround">48-72 hour turnaround</div>
                     <ul class="plan-features">
                         <li>10 candidate scans/month</li>
-                        <li>24-hour turnaround</li>
                         <li>Email & phone verification</li>
                         <li>LinkedIn analysis</li>
                         <li>AI resume detection</li>
                         <li>Detailed PDF reports</li>
                     </ul>
-                    <a href="https://buy.stripe.com/3csg1G3v61fHajC28j" class="btn btn-primary">Get Started</a>
+                    <a href="https://buy.stripe.com/dRmeVf4xo2WK67s95G1VK01" class="btn btn-primary">Get Started</a>
                 </div>
 
-                <div class="pricing-card featured">
+                <div class="pricing-card">
                     <div class="plan-name">Professional</div>
                     <div class="price">$99<span>/month</span></div>
+                    <div class="turnaround">24-48 hour turnaround</div>
                     <ul class="plan-features">
                         <li>30 candidate scans/month</li>
-                        <li>12-hour turnaround</li>
                         <li>Everything in Starter</li>
                         <li>Priority support</li>
                         <li>Digital footprint analysis</li>
                         <li>Pattern recognition</li>
                     </ul>
-                    <a href="https://buy.stripe.com/cN2aGc2r23nP47eaER" class="btn btn-primary">Get Started</a>
+                    <a href="https://buy.stripe.com/5kQeVf8NEfJw7bweq01VK02" class="btn btn-primary">Get Started</a>
                 </div>
 
                 <div class="pricing-card">
                     <div class="plan-name">Business</div>
                     <div class="price">$199<span>/month</span></div>
+                    <div class="turnaround">24-48 hour turnaround</div>
                     <ul class="plan-features">
                         <li>100 candidate scans/month</li>
-                        <li>6-hour turnaround</li>
                         <li>Everything in Professional</li>
                         <li>Dedicated account manager</li>
                         <li>Custom integrations</li>
                         <li>Team training</li>
                     </ul>
-                    <a href="https://buy.stripe.com/eVa9Cg94mejz1Z28wC" class="btn btn-primary">Get Started</a>
+                    <a href="https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03" class="btn btn-primary">Get Started</a>
                 </div>
 
-                <div class="pricing-card">
-                    <div class="plan-name">Founder's</div>
-                    <div class="price">$999<span>/lifetime</span></div>
+                <div class="pricing-card featured">
+                    <div class="featured-badge">🔥 BEST VALUE</div>
+                    <div class="plan-name">Founder's Deal</div>
+                    <div class="price">$297<span>/lifetime</span></div>
+                    <div class="turnaround">24-48 hour turnaround</div>
                     <ul class="plan-features">
                         <li>Unlimited scans forever</li>
-                        <li>4-hour turnaround</li>
                         <li>Everything in Business</li>
                         <li>Lifetime updates</li>
                         <li>VIP support</li>
                         <li>One-time payment</li>
+                        <li>Lock in early access pricing</li>
                     </ul>
-                    <a href="https://buy.stripe.com/8wM7u46Hy5vX1Z24gn" class="btn btn-primary">Get Started</a>
+                    <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="btn btn-primary">Get Lifetime Access</a>
                 </div>
             </div>
         </div>

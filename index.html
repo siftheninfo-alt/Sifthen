@@ -155,6 +155,11 @@
             background: rgba(255,255,255,0.3);
         }
 
+        .btn-large {
+            padding: 20px 50px;
+            font-size: 18px;
+        }
+
         /* Trust Badges */
         .trust-badges {
             background: #f8f9fa;
@@ -428,9 +433,94 @@
             margin-bottom: 60px;
         }
 
+        /* Featured Pricing - Founder's Deal */
+        .featured-pricing {
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+
+        .pricing-card.featured-large {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 60px;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.4);
+            border: 3px solid #fff;
+            text-align: center;
+        }
+
+        .pricing-card.featured-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 40px 100px rgba(102, 126, 234, 0.5);
+        }
+
+        .featured-badge {
+            background: white;
+            color: #667eea;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card.featured-large .plan-name {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .pricing-card.featured-large .price {
+            color: white;
+            font-size: 72px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .pricing-card.featured-large .price span {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 24px;
+        }
+
+        .pricing-card.featured-large .turnaround {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .featured-description {
+            font-size: 20px;
+            margin: 20px 0 30px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .pricing-card.featured-large .plan-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .pricing-card.featured-large .plan-features li {
+            color: white;
+            font-size: 16px;
+            padding: 10px 0;
+        }
+
+        .pricing-card.featured-large .plan-features li:before {
+            color: white;
+        }
+
+        /* Regular Pricing Grid */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
@@ -443,38 +533,13 @@
             text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 2px solid transparent;
-            position: relative;
+            border: 2px solid #f0f0f0;
         }
 
         .pricing-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
-        }
-
-        .pricing-card.featured {
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
             border-color: #667eea;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.25);
-            transform: scale(1.05);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.08) translateY(-10px);
-        }
-
-        .featured-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 25px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .plan-name {
@@ -500,7 +565,7 @@
         .turnaround {
             font-size: 14px;
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 500;
         }
 
@@ -610,8 +675,12 @@
                 display: none;
             }
 
-            .pricing-card.featured {
-                transform: scale(1);
+            .pricing-card.featured-large .plan-features {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured-large .price {
+                font-size: 56px;
             }
         }
     </style>
@@ -779,6 +848,27 @@
             <h2>Early Access Pricing</h2>
             <p class="pricing-subtitle">Limited spots available at founder pricing</p>
             
+            <!-- Founder's Deal - Featured on Top -->
+            <div class="featured-pricing">
+                <div class="pricing-card featured-large">
+                    <div class="featured-badge">🔥 FOUNDER'S DEAL - LIMITED TIME</div>
+                    <div class="plan-name">Lifetime Access</div>
+                    <div class="price">$297<span>/one-time</span></div>
+                    <div class="turnaround">24-48 hour turnaround</div>
+                    <p class="featured-description">Lock in unlimited scans forever. Pay once, never again.</p>
+                    <ul class="plan-features">
+                        <li>Unlimited candidate scans forever</li>
+                        <li>Everything in Business plan</li>
+                        <li>Lifetime updates & new features</li>
+                        <li>VIP priority support</li>
+                        <li>One-time payment, no recurring fees</li>
+                        <li>Lock in early access pricing forever</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="btn btn-primary btn-large">Get Lifetime Access Now</a>
+                </div>
+            </div>
+
+            <!-- Regular Plans -->
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <div class="plan-name">Starter</div>
@@ -820,22 +910,6 @@
                         <li>Team training</li>
                     </ul>
                     <a href="https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03" class="btn btn-primary">Get Started</a>
-                </div>
-
-                <div class="pricing-card featured">
-                    <div class="featured-badge">🔥 BEST VALUE</div>
-                    <div class="plan-name">Founder's Deal</div>
-                    <div class="price">$297<span>/lifetime</span></div>
-                    <div class="turnaround">24-48 hour turnaround</div>
-                    <ul class="plan-features">
-                        <li>Unlimited scans forever</li>
-                        <li>Everything in Business</li>
-                        <li>Lifetime updates</li>
-                        <li>VIP support</li>
-                        <li>One-time payment</li>
-                        <li>Lock in early access pricing</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="btn btn-primary">Get Lifetime Access</a>
                 </div>
             </div>
         </div>

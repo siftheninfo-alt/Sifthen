@@ -108,11 +108,18 @@
 
         .hero .description {
             font-size: 18px;
-            margin-bottom: 40px;
+            margin-bottom: 15px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             color: rgba(255, 255, 255, 0.95);
+        }
+
+        .hero .trial-highlight {
+            font-size: 20px;
+            margin-bottom: 40px;
+            font-weight: 600;
+            color: white;
         }
 
         .cta-buttons {
@@ -158,6 +165,12 @@
         .btn-large {
             padding: 20px 50px;
             font-size: 18px;
+        }
+
+        .cta-subtext {
+            margin-top: 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Trust Badges */
@@ -430,7 +443,30 @@
             text-align: center;
             font-size: 18px;
             color: #666;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
+        }
+
+        /* Trial Banner */
+        .trial-banner {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 12px;
+            border: 2px solid #667eea;
+        }
+
+        .trial-banner h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .trial-banner p {
+            font-size: 16px;
+            color: #666;
+            margin: 0;
         }
 
         /* Featured Pricing - Founder's Deal */
@@ -543,12 +579,24 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             transition: transform 0.3s, box-shadow 0.3s;
             border: 2px solid #f0f0f0;
+            position: relative;
         }
 
         .pricing-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
             border-color: #667eea;
+        }
+
+        .free-trial-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
         }
 
         .plan-name {
@@ -569,6 +617,13 @@
             font-size: 18px;
             color: #666;
             font-weight: 500;
+        }
+
+        .trial-info {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            font-style: italic;
         }
 
         .turnaround {
@@ -601,6 +656,13 @@
             font-weight: bold;
         }
 
+        .trial-terms {
+            font-size: 12px;
+            color: #999;
+            margin-top: 15px;
+            text-align: center;
+        }
+
         /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -617,8 +679,14 @@
 
         .cta-section p {
             font-size: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 15px;
             opacity: 0.95;
+        }
+
+        .cta-section .trial-text {
+            font-size: 18px;
+            margin-bottom: 40px;
+            font-weight: 600;
         }
 
         /* Footer */
@@ -691,6 +759,10 @@
             .pricing-card.featured-large .price {
                 font-size: 56px;
             }
+
+            .trial-banner h3 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
@@ -714,10 +786,12 @@
             <h1>Stop Hiring Fake Candidates</h1>
             <p class="subtitle">AI-Powered Fraud Detection for Hiring Teams</p>
             <p class="description">Catch fake resumes, deepfakes, VoIP scams, and fraudulent LinkedIn profiles before you waste time interviewing. Get detailed reports in 24 hours.</p>
+            <p class="trial-highlight">Try free for 14 days. No credit card required.</p>
             <div class="cta-buttons">
-                <a href="#pricing" class="btn btn-primary">Get Early Access</a>
+                <a href="#pricing" class="btn btn-primary">Start Free 14-Day Trial</a>
                 <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
             </div>
+            <p class="cta-subtext">No credit card required • Cancel anytime</p>
         </div>
     </section>
 
@@ -857,6 +931,12 @@
             <h2>Early Access Pricing</h2>
             <p class="pricing-subtitle">Limited spots available at founder pricing</p>
             
+            <!-- Trial Banner -->
+            <div class="trial-banner">
+                <h3>🎁 Try Any Plan Free for 14 Days</h3>
+                <p>No credit card required • Full access to all features • Cancel anytime</p>
+            </div>
+            
             <!-- Founder's Deal - Featured on Top -->
             <div class="featured-pricing">
                 <div class="pricing-card featured-large">
@@ -880,8 +960,10 @@
             <!-- Regular Plans -->
             <div class="pricing-grid">
                 <div class="pricing-card">
+                    <div class="free-trial-badge">🎁 14 Days Free</div>
                     <div class="plan-name">Starter</div>
                     <div class="price">$39<span>/month</span></div>
+                    <div class="trial-info">after 14-day free trial</div>
                     <div class="turnaround">48-72 hour turnaround</div>
                     <ul class="plan-features">
                         <li>10 candidate scans/month</li>
@@ -890,12 +972,15 @@
                         <li>AI resume detection</li>
                         <li>Detailed PDF reports</li>
                     </ul>
-                    <a href="https://buy.stripe.com/dRmeVf4xo2WK67s95G1VK01" class="btn btn-primary">Get Started</a>
+                    <a href="https://buy.stripe.com/dRmeVf4xo2WK67s95G1VK01" class="btn btn-primary">Start Free 14-Day Trial</a>
+                    <p class="trial-terms">No credit card required</p>
                 </div>
 
                 <div class="pricing-card">
+                    <div class="free-trial-badge">🎁 14 Days Free</div>
                     <div class="plan-name">Professional</div>
                     <div class="price">$99<span>/month</span></div>
+                    <div class="trial-info">after 14-day free trial</div>
                     <div class="turnaround">24-48 hour turnaround</div>
                     <ul class="plan-features">
                         <li>30 candidate scans/month</li>
@@ -904,12 +989,15 @@
                         <li>Digital footprint analysis</li>
                         <li>Pattern recognition</li>
                     </ul>
-                    <a href="https://buy.stripe.com/5kQeVf8NEfJw7bweq01VK02" class="btn btn-primary">Get Started</a>
+                    <a href="https://buy.stripe.com/5kQeVf8NEfJw7bweq01VK02" class="btn btn-primary">Start Free 14-Day Trial</a>
+                    <p class="trial-terms">No credit card required</p>
                 </div>
 
                 <div class="pricing-card">
+                    <div class="free-trial-badge">🎁 14 Days Free</div>
                     <div class="plan-name">Business</div>
                     <div class="price">$199<span>/month</span></div>
+                    <div class="trial-info">after 14-day free trial</div>
                     <div class="turnaround">24-48 hour turnaround</div>
                     <ul class="plan-features">
                         <li>100 candidate scans/month</li>
@@ -918,7 +1006,8 @@
                         <li>Custom integrations</li>
                         <li>Team training</li>
                     </ul>
-                    <a href="https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03" class="btn btn-primary">Get Started</a>
+                    <a href="https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03" class="btn btn-primary">Start Free 14-Day Trial</a>
+                    <p class="trial-terms">No credit card required</p>
                 </div>
             </div>
         </div>
@@ -928,8 +1017,9 @@
     <section class="cta-section">
         <div class="container">
             <h2>Ready to Stop Wasting Time on Fake Candidates?</h2>
-            <p>Join hiring teams protecting their recruitment process</p>
-            <a href="#pricing" class="btn btn-primary">Get Early Access Now</a>
+            <p>Try Sifthen free for 14 days.</p>
+            <p class="trial-text">No credit card required • Cancel anytime</p>
+            <a href="#pricing" class="btn btn-primary">Start Free 14-Day Trial</a>
         </div>
     </section>
 
@@ -953,11 +1043,9 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Sifthen. All rights reserved.</p>
+                <p>&copy; 2025 Sifthen. All rights reserved.</p>
             </div>
         </div>
     </footer>
 </body>
 </html>
-
-

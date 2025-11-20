@@ -171,6 +171,28 @@
             font-size: 18px;
         }
 
+        /* Special button for Lifetime Deal */
+        .btn-lifetime {
+            background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
+            color: white;
+            padding: 20px 50px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-lifetime:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.6);
+            background: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 100%);
+        }
+
         .cta-subtext {
             margin-top: 15px;
             font-size: 14px;
@@ -229,15 +251,15 @@
         }
 
         .stat-callout {
-            background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%);
+            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
             color: white;
             padding: 40px;
             border-radius: 16px;
             text-align: center;
             margin: 50px auto;
             max-width: 800px;
-            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.4);
+            border: 2px solid rgba(168, 85, 247, 0.5);
         }
 
         .stat-callout p {
@@ -335,19 +357,19 @@
         }
 
         .report-callout {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(234, 88, 12, 0.15) 100%);
-            border-left: 4px solid #F59E0B;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(245, 158, 11, 0.2) 100%);
+            border-left: 4px solid #FBBF24;
             padding: 30px;
             margin-top: 50px;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
         }
 
         .report-callout p {
             margin: 0;
             font-size: 16px;
             line-height: 1.8;
-            color: #FDE68A;
+            color: #FEF3C7;
         }
 
         /* Solution Section */
@@ -518,23 +540,23 @@
         }
 
         .pricing-card.featured-large {
-            background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%);
+            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
             color: white;
             padding: 50px 60px;
             border-radius: 20px;
-            box-shadow: 0 30px 80px rgba(139, 92, 246, 0.4);
-            border: 3px solid rgba(139, 92, 246, 0.5);
+            box-shadow: 0 30px 80px rgba(168, 85, 247, 0.5);
+            border: 3px solid rgba(168, 85, 247, 0.6);
             text-align: center;
         }
 
         .pricing-card.featured-large:hover {
             transform: translateY(-5px);
-            box-shadow: 0 40px 100px rgba(139, 92, 246, 0.6);
+            box-shadow: 0 40px 100px rgba(168, 85, 247, 0.7);
         }
 
         .featured-badge {
             background: white;
-            color: #5B21B6;
+            color: #7C3AED;
             padding: 10px 30px;
             border-radius: 25px;
             font-size: 14px;
@@ -830,7 +852,7 @@
         <div class="container hero-content">
             <h1>Stop Hiring Fake Candidates</h1>
             <p class="subtitle">AI-Powered Fraud Detection for Hiring Teams</p>
-            <p class="description">Catch fake resumes, deepfakes, VoIP scams, and fraudulent LinkedIn profiles before you extend an offer. Get detailed reports in 12-24 hours.</p>
+            <p class="description">Catch fake resumes, deepfakes, VoIP scams, and fraudulent LinkedIn profiles before you extend an offer. Get detailed reports in 24-48 hours.</p>
             <p class="trial-highlight">Try free for 14 days. No credit card required.</p>
             <div class="cta-buttons">
                 <a href="#pricing" class="btn btn-primary">Start Free 14-Day Trial</a>
@@ -846,7 +868,7 @@
             <p>Built for Modern Hiring Teams</p>
             <div class="badges">
                 <span class="badge">Secure & Confidential</span>
-                <span class="badge">12-24 Hour Turnaround</span>
+                <span class="badge">24-48 Hour Turnaround</span>
                 <span class="badge">Expert Human Review</span>
             </div>
         </div>
@@ -1031,7 +1053,7 @@
                         <li>One-time payment, no recurring fees</li>
                         <li>Lock in early access pricing forever</li>
                     </ul>
-                    <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="btn btn-primary btn-large">Get Lifetime Access Now</a>
+                    <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="btn-lifetime">Get Lifetime Access Now</a>
                 </div>
             </div>
 
@@ -1042,7 +1064,7 @@
                     <div class="plan-name">Starter</div>
                     <div class="price">$39<span>/month</span></div>
                     <div class="trial-info">after 14-day free trial</div>
-                    <div class="turnaround">24 hour turnaround</div>
+                    <div class="turnaround">48-72 hour turnaround</div>
                     <ul class="plan-features">
                         <li>10 candidate scans/month</li>
                         <li>Email & phone verification</li>
@@ -1059,7 +1081,7 @@
                     <div class="plan-name">Professional</div>
                     <div class="price">$99<span>/month</span></div>
                     <div class="trial-info">after 14-day free trial</div>
-                    <div class="turnaround">12 hour turnaround</div>
+                    <div class="turnaround">24-48 hour turnaround</div>
                     <ul class="plan-features">
                         <li>30 candidate scans/month</li>
                         <li>Everything in Starter</li>
@@ -1076,7 +1098,7 @@
                     <div class="plan-name">Business</div>
                     <div class="price">$199<span>/month</span></div>
                     <div class="trial-info">after 14-day free trial</div>
-                    <div class="turnaround">12 hour turnaround</div>
+                    <div class="turnaround">24-48 hour turnaround</div>
                     <ul class="plan-features">
                         <li>100 candidate scans/month</li>
                         <li>Everything in Professional</li>
@@ -1121,13 +1143,9 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Sifthen. All rights reserved.</p>
+                <p>&copy; 2024 Sifthen. All rights reserved.</p>
             </div>
         </div>
     </footer>
 </body>
 </html>
-
-
-
-

@@ -14,9 +14,10 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: #1a1a1a;
+            color: #F1F5F9;
             line-height: 1.6;
             overflow-x: hidden;
+            background: #0F172A;
         }
 
         .container {
@@ -27,14 +28,15 @@
 
         /* Navigation */
         nav {
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(139, 92, 246, 0.1);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         nav .container {
@@ -46,7 +48,7 @@
         .logo {
             font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -54,7 +56,7 @@
 
         .nav-links a {
             margin-left: 40px;
-            color: #1a1a1a;
+            color: #F1F5F9;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -62,12 +64,12 @@
         }
 
         .nav-links a:hover {
-            color: #667eea;
+            color: #8B5CF6;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #5B21B6 100%);
             color: white;
             padding: 180px 0 120px;
             text-align: center;
@@ -82,7 +84,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(139,92,246,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
             opacity: 0.3;
         }
 
@@ -103,7 +105,7 @@
             font-size: 24px;
             margin-bottom: 20px;
             font-weight: 500;
-            color: white;
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .hero .description {
@@ -112,14 +114,14 @@
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            color: rgba(255, 255, 255, 0.95);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .hero .trial-highlight {
             font-size: 20px;
             margin-bottom: 40px;
             font-weight: 600;
-            color: white;
+            color: #8B5CF6;
         }
 
         .cta-buttons {
@@ -142,24 +144,26 @@
         }
 
         .btn-primary {
-            background: white;
-            color: #667eea;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #5B21B6 0%, #8B5CF6 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+            background: linear-gradient(135deg, #6D28D9 0%, #A78BFA 100%);
         }
 
         .btn-secondary {
-            background: rgba(255,255,255,0.2);
+            background: rgba(139, 92, 246, 0.1);
             color: white;
-            border: 2px solid white;
+            border: 2px solid #8B5CF6;
         }
 
         .btn-secondary:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #A78BFA;
         }
 
         .btn-large {
@@ -170,19 +174,20 @@
         .cta-subtext {
             margin-top: 15px;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Trust Badges */
         .trust-badges {
-            background: #f8f9fa;
+            background: #1E293B;
             padding: 40px 0;
             text-align: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
         }
 
         .trust-badges p {
             font-size: 14px;
-            color: #666;
+            color: #94A3B8;
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -199,14 +204,20 @@
 
         .badge {
             font-size: 16px;
-            color: #1a1a1a;
+            color: #F1F5F9;
             font-weight: 600;
+        }
+
+        .badge::before {
+            content: '■';
+            color: #8B5CF6;
+            margin-right: 8px;
         }
 
         /* Problem Section */
         .problem {
             padding: 100px 0;
-            background: white;
+            background: #0F172A;
         }
 
         .problem h2 {
@@ -214,18 +225,19 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 20px;
-            color: #1a1a1a;
+            color: #F1F5F9;
         }
 
         .stat-callout {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%);
             color: white;
             padding: 40px;
             border-radius: 16px;
             text-align: center;
             margin: 50px auto;
             max-width: 800px;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .stat-callout p {
@@ -250,24 +262,30 @@
         }
 
         .problem-card {
-            background: white;
+            background: #1E293B;
             padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #f0f0f0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         .problem-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+            border-color: #8B5CF6;
         }
 
         .problem-card h3 {
             font-size: 24px;
             margin-bottom: 20px;
-            color: #667eea;
+            color: #8B5CF6;
             font-weight: 700;
+        }
+
+        .problem-card h3::before {
+            content: '▸ ';
+            color: #06B6D4;
         }
 
         .problem-card ul {
@@ -277,18 +295,19 @@
 
         .problem-card ul li {
             padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
             font-size: 15px;
             line-height: 1.6;
             padding-left: 25px;
             position: relative;
+            color: #CBD5E1;
         }
 
         .problem-card ul li:before {
             content: '→';
             position: absolute;
             left: 0;
-            color: #667eea;
+            color: #8B5CF6;
             font-weight: bold;
         }
 
@@ -297,8 +316,8 @@
         }
 
         .report-callout {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #F59E0B;
             padding: 30px;
             margin-top: 50px;
             border-radius: 8px;
@@ -308,12 +327,12 @@
             margin: 0;
             font-size: 16px;
             line-height: 1.8;
-            color: #856404;
+            color: #FCD34D;
         }
 
         /* Solution Section */
         .solution {
-            background: #f8f9fa;
+            background: #1E293B;
             padding: 100px 0;
         }
 
@@ -322,13 +341,13 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 15px;
-            color: #1a1a1a;
+            color: #F1F5F9;
         }
 
         .subtitle {
             text-align: center;
             font-size: 20px;
-            color: #666;
+            color: #94A3B8;
             margin-bottom: 60px;
         }
 
@@ -340,34 +359,36 @@
         }
 
         .solution-card {
-            background: white;
+            background: #0F172A;
             padding: 40px;
             border-radius: 16px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #f0f0f0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         .solution-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+            border-color: #8B5CF6;
         }
 
         .icon {
             font-size: 48px;
             margin-bottom: 20px;
+            color: #8B5CF6;
         }
 
         .solution-card h3 {
             font-size: 22px;
             margin-bottom: 15px;
-            color: #1a1a1a;
+            color: #F1F5F9;
             font-weight: 700;
         }
 
         .solution-card p {
-            color: #666;
+            color: #94A3B8;
             line-height: 1.7;
             font-size: 15px;
         }
@@ -375,7 +396,7 @@
         /* How It Works */
         .how-it-works {
             padding: 100px 0;
-            background: white;
+            background: #0F172A;
         }
 
         .how-it-works h2 {
@@ -383,7 +404,7 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 80px;
-            color: #1a1a1a;
+            color: #F1F5F9;
         }
 
         .steps {
@@ -400,7 +421,7 @@
         .step-number {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #5B21B6 0%, #8B5CF6 100%);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -409,18 +430,18 @@
             font-size: 36px;
             font-weight: 800;
             margin: 0 auto 25px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
         }
 
         .step h3 {
             font-size: 24px;
             margin-bottom: 15px;
-            color: #1a1a1a;
+            color: #F1F5F9;
             font-weight: 700;
         }
 
         .step p {
-            color: #666;
+            color: #94A3B8;
             font-size: 16px;
             line-height: 1.7;
         }
@@ -428,7 +449,7 @@
         /* Pricing */
         .pricing {
             padding: 100px 0;
-            background: #f8f9fa;
+            background: #1E293B;
         }
 
         .pricing h2 {
@@ -436,13 +457,13 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 20px;
-            color: #1a1a1a;
+            color: #F1F5F9;
         }
 
         .pricing-subtitle {
             text-align: center;
             font-size: 18px;
-            color: #666;
+            color: #94A3B8;
             margin-bottom: 40px;
         }
 
@@ -451,21 +472,21 @@
             text-align: center;
             margin-bottom: 50px;
             padding: 35px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            background: rgba(139, 92, 246, 0.1);
             border-radius: 12px;
-            border: 2px solid #667eea;
+            border: 2px solid rgba(139, 92, 246, 0.3);
         }
 
         .trial-banner h3 {
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 10px;
-            color: #667eea;
+            color: #8B5CF6;
         }
 
         .trial-banner p {
             font-size: 16px;
-            color: #666;
+            color: #94A3B8;
             margin: 0;
         }
 
@@ -476,23 +497,23 @@
         }
 
         .pricing-card.featured-large {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%);
             color: white;
             padding: 50px 60px;
             border-radius: 20px;
-            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.4);
-            border: 3px solid #fff;
+            box-shadow: 0 30px 80px rgba(139, 92, 246, 0.4);
+            border: 3px solid rgba(139, 92, 246, 0.5);
             text-align: center;
         }
 
         .pricing-card.featured-large:hover {
             transform: translateY(-5px);
-            box-shadow: 0 40px 100px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 40px 100px rgba(139, 92, 246, 0.6);
         }
 
         .featured-badge {
             background: white;
-            color: #667eea;
+            color: #5B21B6;
             padding: 10px 30px;
             border-radius: 25px;
             font-size: 14px;
@@ -572,24 +593,24 @@
         }
 
         .pricing-card {
-            background: white;
+            background: #0F172A;
             padding: 40px;
             border-radius: 16px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 2px solid #f0f0f0;
+            border: 2px solid rgba(139, 92, 246, 0.2);
             position: relative;
         }
 
         .pricing-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
-            border-color: #667eea;
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+            border-color: #8B5CF6;
         }
 
         .free-trial-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #5B21B6 0%, #8B5CF6 100%);
             color: white;
             padding: 8px 20px;
             border-radius: 20px;
@@ -603,32 +624,32 @@
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 15px;
-            color: #1a1a1a;
+            color: #F1F5F9;
         }
 
         .price {
             font-size: 48px;
             font-weight: 800;
-            color: #667eea;
+            color: #8B5CF6;
             margin-bottom: 10px;
         }
 
         .price span {
             font-size: 18px;
-            color: #666;
+            color: #94A3B8;
             font-weight: 500;
         }
 
         .trial-info {
             font-size: 14px;
-            color: #666;
+            color: #94A3B8;
             margin-bottom: 15px;
             font-style: italic;
         }
 
         .turnaround {
             font-size: 14px;
-            color: #666;
+            color: #94A3B8;
             margin-bottom: 25px;
             font-weight: 500;
         }
@@ -643,7 +664,7 @@
         .plan-features li {
             padding: 12px 0;
             font-size: 15px;
-            color: #666;
+            color: #CBD5E1;
             padding-left: 25px;
             position: relative;
         }
@@ -652,20 +673,20 @@
             content: '✓';
             position: absolute;
             left: 0;
-            color: #667eea;
+            color: #8B5CF6;
             font-weight: bold;
         }
 
         .trial-terms {
             font-size: 12px;
-            color: #999;
+            color: #64748B;
             margin-top: 15px;
             text-align: center;
         }
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #5B21B6 100%);
             padding: 100px 0;
             text-align: center;
             color: white;
@@ -687,13 +708,15 @@
             font-size: 18px;
             margin-bottom: 40px;
             font-weight: 600;
+            color: #A78BFA;
         }
 
         /* Footer */
         footer {
-            background: #1a1a1a;
+            background: #0A0F1E;
             color: white;
             padding: 60px 0 30px;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         .footer-content {
@@ -707,10 +730,11 @@
             font-size: 18px;
             margin-bottom: 20px;
             font-weight: 700;
+            color: #8B5CF6;
         }
 
         .footer-section p, .footer-section a {
-            color: #999;
+            color: #94A3B8;
             font-size: 14px;
             line-height: 1.8;
             text-decoration: none;
@@ -719,14 +743,14 @@
         }
 
         .footer-section a:hover {
-            color: #667eea;
+            color: #8B5CF6;
         }
 
         .footer-bottom {
-            border-top: 1px solid #333;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
             padding-top: 30px;
             text-align: center;
-            color: #666;
+            color: #64748B;
             font-size: 14px;
         }
 
@@ -785,13 +809,13 @@
         <div class="container hero-content">
             <h1>Stop Hiring Fake Candidates</h1>
             <p class="subtitle">AI-Powered Fraud Detection for Hiring Teams</p>
-            <p class="description">Catch fake resumes, deepfakes, VoIP scams, and fraudulent LinkedIn profiles before you extend an offer. Get detailed fraud reports in 24-48 hours and prevent a costly bad hire.</p>
+            <p class="description">Catch fake resumes, deepfakes, VoIP scams, and fraudulent LinkedIn profiles before you extend an offer. Get detailed reports in 24-48 hours.</p>
             <p class="trial-highlight">Try free for 14 days. No credit card required.</p>
             <div class="cta-buttons">
                 <a href="#pricing" class="btn btn-primary">Start Free 14-Day Trial</a>
                 <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
             </div>
-            <p class="cta-subtext"> Cancel anytime</p>
+            <p class="cta-subtext">No credit card required • Cancel anytime</p>
         </div>
     </section>
 
@@ -800,9 +824,9 @@
         <div class="container">
             <p>Built for Modern Hiring Teams</p>
             <div class="badges">
-                <span class="badge">🔒 Secure & Confidential</span>
-                <span class="badge">⚡ 24-48 Hour Turnaround</span>
-                <span class="badge">✓ Expert Human Review</span>
+                <span class="badge">Secure & Confidential</span>
+                <span class="badge">24-48 Hour Turnaround</span>
+                <span class="badge">Expert Human Review</span>
             </div>
         </div>
     </section>
@@ -819,7 +843,7 @@
             
             <div class="problem-grid">
                 <div class="problem-card">
-                    <h3>📊 What Recruiters Are Seeing</h3>
+                    <h3>What Recruiters Are Seeing</h3>
                     <ul>
                         <li>Over 98% of applications on free job boards flagged as fraudulent</li>
                         <li>Candidates with "dream resumes" that perfectly match job descriptions</li>
@@ -829,7 +853,7 @@
                 </div>
                 
                 <div class="problem-card">
-                    <h3>🚨 Common Red Flags</h3>
+                    <h3>Common Red Flags</h3>
                     <ul>
                         <li>Degrees from universities that don't offer those programs</li>
                         <li>Years of experience that don't add up chronologically</li>
@@ -839,7 +863,7 @@
                 </div>
                 
                 <div class="problem-card">
-                    <h3>💰 The Real Cost</h3>
+                    <h3>The Real Cost</h3>
                     <ul>
                         <li>Wasted interview time: 2-5 hours per fake candidate</li>
                         <li>Security risks: Some hired fraudsters attempt system hacking</li>
@@ -863,37 +887,37 @@
 
             <div class="solution-grid">
                 <div class="solution-card">
-                    <div class="icon">🤖</div>
+                    <div class="icon">⬡</div>
                     <h3>AI Resume Detection</h3>
                     <p>Identify AI-generated resumes and highlight sections likely written by ChatGPT or Claude with specific evidence.</p>
                 </div>
 
                 <div class="solution-card">
-                    <div class="icon">📧</div>
+                    <div class="icon">⬢</div>
                     <h3>Email & Phone Verification</h3>
                     <p>Verify email validity, check for disposable addresses, detect VoIP numbers, and flag suspicious patterns like the Texas VoIP scam.</p>
                 </div>
 
                 <div class="solution-card">
-                    <div class="icon">💼</div>
+                    <div class="icon">⬡</div>
                     <h3>LinkedIn Verification</h3>
                     <p>Analyze profile age, connection count, activity patterns, and cross-reference with resume details to spot inconsistencies.</p>
                 </div>
 
                 <div class="solution-card">
-                    <div class="icon">🌍</div>
+                    <div class="icon">⬢</div>
                     <h3>Digital Footprint Analysis</h3>
                     <p>Search for online presence, verify claimed experience, and identify red flags like missing information or suspicious patterns.</p>
                 </div>
 
                 <div class="solution-card">
-                    <div class="icon">🎯</div>
+                    <div class="icon">⬡</div>
                     <h3>Pattern Recognition</h3>
                     <p>Spot "too good to be true" candidates, template resumes, cookie-cutter portfolios, and common fraud indicators.</p>
                 </div>
 
                 <div class="solution-card">
-                    <div class="icon">👤</div>
+                    <div class="icon">⬢</div>
                     <h3>Expert Human Review</h3>
                     <p>Every candidate is personally reviewed by our team. You get detailed evidence and clear risk assessment, not just automated scores.</p>
                 </div>
@@ -933,7 +957,7 @@
             
             <!-- Trial Banner -->
             <div class="trial-banner">
-                <h3>🎁 Try Any Plan Free for 14 Days</h3>
+                <h3>Try Any Plan Free for 14 Days</h3>
                 <p>No credit card required • Full access to all features • Cancel anytime</p>
             </div>
             
@@ -960,7 +984,7 @@
             <!-- Regular Plans -->
             <div class="pricing-grid">
                 <div class="pricing-card">
-                    <div class="free-trial-badge">🎁 14 Days Free</div>
+                    <div class="free-trial-badge">14 Days Free</div>
                     <div class="plan-name">Starter</div>
                     <div class="price">$39<span>/month</span></div>
                     <div class="trial-info">after 14-day free trial</div>
@@ -977,7 +1001,7 @@
                 </div>
 
                 <div class="pricing-card">
-                    <div class="free-trial-badge">🎁 14 Days Free</div>
+                    <div class="free-trial-badge">14 Days Free</div>
                     <div class="plan-name">Professional</div>
                     <div class="price">$99<span>/month</span></div>
                     <div class="trial-info">after 14-day free trial</div>
@@ -994,7 +1018,7 @@
                 </div>
 
                 <div class="pricing-card">
-                    <div class="free-trial-badge">🎁 14 Days Free</div>
+                    <div class="free-trial-badge">14 Days Free</div>
                     <div class="plan-name">Business</div>
                     <div class="price">$199<span>/month</span></div>
                     <div class="trial-info">after 14-day free trial</div>
@@ -1017,8 +1041,8 @@
     <section class="cta-section">
         <div class="container">
             <h2>Ready to Stop Wasting Time on Fake Candidates?</h2>
-            <p>Try Sifthen free for 14 days.</p>
-            <p class="trial-text">No credit card required • Cancel anytime</p>
+            <p>Verify your finalists before you hire.</p>
+            <p class="trial-text">Try free for 14 days • No credit card required • Cancel anytime</p>
             <a href="#pricing" class="btn btn-primary">Start Free 14-Day Trial</a>
         </div>
     </section>
@@ -1039,15 +1063,13 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
-                    <a href="mailto:info@sifthen.com">info@sifthen.com</a>
+                    <a href="mailto:siftheninfo@gmail.com">siftheninfo@gmail.com</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Sifthen. All rights reserved.</p>
+                <p>&copy; 2024 Sifthen. All rights reserved.</p>
             </div>
         </div>
     </footer>
 </body>
 </html>
-
-

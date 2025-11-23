@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Scan - Sifthen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a3e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #8b5cf6;
+            color: #8b5cf6;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #a78bfa;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .form-subtitle {
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="url"]:focus,
+        textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px dashed rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+
+        .file-input-label:hover {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .file-name {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #8b5cf6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-row-full {
+            grid-column: 1 / -1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .processing-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .processing-modal.show {
+            display: flex;
+        }
+
+        .processing-content {
+            background: linear-gradient(135deg, #1a1a3e 0%, #16213e 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(139, 92, 246, 0.3);
+            border-top-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .processing-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .processing-subtext {
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .required-note {
+            color: #8b5cf6;
+            font-size: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
+            .form-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="dashboard.html" class="logo">Sifthen</a>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
+
+        <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="form-card">
+            <h1 class="form-title">Submit Candidate</h1>
+            <p class="form-subtitle">Verify candidate authenticity and detect fraud indicators</p>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <form id="submitScanForm">
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="candidateName">Candidate Name *</label>
+                        <input 
+                            type="text" 
+                            id="candidateName" 
+                            name="Candidate_Name" 
+                            placeholder="John Doe"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="candidateEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="candidateEmail" 
+                            name="Email_Address" 
+                            placeholder="john@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="candidatePhone">Phone Number *</label>
+                        <input 
+                            type="tel" 
+                            id="candidatePhone" 
+                            name="Phone_Number" 
+                            placeholder="+1 (555) 123-4567"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="linkedinUrl">LinkedIn URL</label>
+                        <input 
+                            type="url" 
+                            id="linkedinUrl" 
+                            name="LinkedIn_URL" 
+                            placeholder="https://linkedin.com/in/johndoe"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="resume">Resume *</label>
+                        <div class="file-input-wrapper">
+                            <input 
+                                type="file" 
+                                id="resume" 
+                                name="Resume"
+                                accept=".pdf,.doc,.docx,.txt"
+                                required
+                            >
+                            <label for="resume" class="file-input-label">
+                                📄 Click to upload or drag resume file
+                                <div class="file-name" id="fileName"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Submit for Verification</button>
+
+                <p class="required-note">* Required fields</p>
+            </form>
+        </div>
+    </div>
+
+    <div class="processing-modal" id="processingModal">
+        <div class="processing-content">
+            <div class="spinner"></div>
+            <div class="processing-text">Analyzing Candidate</div>
+            <div class="processing-subtext">Running fraud detection checks...</div>
+        </div>
+    </div>
+
+    <script>
+        const WEBHOOK_URL = 'https://hook.us2.make.com/oudjkwjloxtesxrw3mpaiwsn9ipesyz3';
+
+        // File upload handling
+        document.getElementById('resume').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name || '';
+            document.getElementById('fileName').textContent = fileName ? `✓ ${fileName}` : '';
+        });
+
+        // Drag and drop
+        const fileLabel = document.querySelector('.file-input-label');
+        
+        fileLabel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileLabel.style.borderColor = '#8b5cf6';
+            fileLabel.style.background = 'rgba(139, 92, 246, 0.2)';
+        });
+
+        fileLabel.addEventListener('dragleave', () => {
+            fileLabel.style.borderColor = 'rgba(139, 92, 246, 0.3)';
+            fileLabel.style.background = 'rgba(255, 255, 255, 0.08)';
+        });
+
+        fileLabel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileLabel.style.borderColor = 'rgba(139, 92, 246, 0.3)';
+            fileLabel.style.background = 'rgba(255, 255, 255, 0.08)';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('resume').files = files;
+                document.getElementById('fileName').textContent = `✓ ${files[0].name}`;
+            }
+        });
+
+        // Form submission
+        document.getElementById('submitScanForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.classList.remove('show');
+
+            const form = e.target;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Get form data
+            const candidateName = document.getElementById('candidateName').value;
+            const candidateEmail = document.getElementById('candidateEmail').value;
+            const candidatePhone = document.getElementById('candidatePhone').value;
+            const linkedinUrl = document.getElementById('linkedinUrl').value;
+            const resumeFile = document.getElementById('resume').files[0];
+
+            // Validate
+            if (!candidateName || !candidateEmail || !candidatePhone || !resumeFile) {
+                errorMessage.textContent = 'Please fill in all required fields.';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Read resume file as base64
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                const resumeBase64 = event.target.result;
+
+                // Get customer email from localStorage
+                const customerData = JSON.parse(localStorage.getItem('customerData') || '{}');
+                const customerEmail = customerData.email || 'unknown@example.com';
+
+                const payload = {
+                    Candidate_Name: candidateName,
+                    Email_Address: candidateEmail,
+                    Phone_Number: candidatePhone,
+                    LinkedIn_URL: linkedinUrl || 'N/A',
+                    Resume: resumeBase64,
+                    Customer_Email: customerEmail,
+                    Submission_Time: new Date().toISOString()
+                };
+
+                // Show processing modal
+                document.getElementById('processingModal').classList.add('show');
+                submitBtn.disabled = true;
+
+                try {
+                    const response = await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        // Store scan info for results page
+                        sessionStorage.setItem('lastScan', JSON.stringify({
+                            candidateName: candidateName,
+                            candidateEmail: candidateEmail,
+                            submittedAt: new Date().toISOString()
+                        }));
+
+                        // Redirect to results page after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'results.html';
+                        }, 2000);
+                    } else {
+                        throw new Error('Failed to submit candidate');
+                    }
+                } catch (error) {
+                    document.getElementById('processingModal').classList.remove('show');
+                    submitBtn.disabled = false;
+                    errorMessage.textContent = 'Error submitting candidate. Please try again.';
+                    errorMessage.classList.add('show');
+                    console.error('Error:', error);
+                }
+            };
+
+            reader.readAsDataURL(resumeFile);
+        });
+
+        function logout() {
+            localStorage.removeItem('customerData');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

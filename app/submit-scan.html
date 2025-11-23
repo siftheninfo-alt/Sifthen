@@ -452,8 +452,6 @@
             // Read resume file as base64
             const reader = new FileReader();
             reader.onload = async (event) => {
-                const resumeBase64 = event.target.result;
-
                 // Get customer email from localStorage
                 const customerData = JSON.parse(localStorage.getItem('customerData') || '{}');
                 const customerEmail = customerData.email || 'unknown@example.com';
@@ -463,7 +461,7 @@
                     Email_Address: candidateEmail,
                     Phone_Number: candidatePhone,
                     LinkedIn_URL: linkedinUrl || 'N/A',
-                    Resume: resumeBase64,
+                    Resume: resumeFile.name,
                     Customer_Email: customerEmail,
                     Submission_Time: new Date().toISOString()
                 };

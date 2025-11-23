@@ -625,8 +625,18 @@
                 localStorage.setItem('sifthen_user', JSON.stringify(userData));
                 localStorage.setItem('sifthen_logged_in', 'true');
 
-                // Redirect to Stripe checkout for all plans (all have 14-day trial)
-                window.location.href = 'https://buy.stripe.com/test_28odTocF06MbbZe3cc';
+                // Redirect to correct Stripe checkout based on plan
+                let stripeUrl;
+                if (plan === 'starter') {
+                    stripeUrl = 'https://buy.stripe.com/dRmeVf4xo2WK67s95G1VK01';
+                } else if (plan === 'professional') {
+                    stripeUrl = 'https://buy.stripe.com/5kQeVf8NEfJw7bweq01VK02';
+                } else if (plan === 'business') {
+                    stripeUrl = 'https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03';
+                }
+
+                // Redirect to Stripe
+                window.location.href = stripeUrl;
                 
             }, 1500);
         });

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Sifthen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #5B21B6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .signup-container {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94A3B8;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .trial-banner {
+            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        .trial-banner h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .trial-banner p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #F1F5F9;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            font-size: 15px;
+            background: rgba(30, 41, 59, 0.5);
+            color: #F1F5F9;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        input::placeholder {
+            color: #64748B;
+        }
+
+        .plan-selection {
+            margin-bottom: 30px;
+        }
+
+        .plan-selection h3 {
+            color: #F1F5F9;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .plan-option {
+            position: relative;
+        }
+
+        .plan-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .plan-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .plan-option input[type="radio"]:checked + .plan-card {
+            border-color: #8B5CF6;
+            background: rgba(139, 92, 246, 0.2);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .plan-option input[type="radio"]:checked + .plan-card::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #8B5CF6;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .plan-card:hover {
+            border-color: #8B5CF6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .plan-name {
+            color: #F1F5F9;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .plan-price {
+            color: #8B5CF6;
+            font-weight: 800;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .plan-period {
+            color: #94A3B8;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .plan-scans {
+            color: #CBD5E1;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .plan-badge {
+            background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .password-requirements {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .password-requirements p {
+            color: #94A3B8;
+            font-size: 12px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .password-requirements li {
+            color: #64748B;
+            font-size: 12px;
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .password-requirements li::before {
+            content: '○';
+            position: absolute;
+            left: 0;
+            color: #64748B;
+        }
+
+        .password-requirements li.valid::before {
+            content: '✓';
+            color: #10B981;
+        }
+
+        .btn-signup {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #5B21B6 0%, #8B5CF6 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+            background: linear-gradient(135deg, #6D28D9 0%, #A78BFA 100%);
+        }
+
+        .btn-signup:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #FCA5A5;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .terms {
+            text-align: center;
+            color: #64748B;
+            font-size: 13px;
+            margin-top: 25px;
+            line-height: 1.6;
+        }
+
+        .terms a {
+            color: #8B5CF6;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .login-link p {
+            color: #94A3B8;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #8B5CF6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-home a {
+            color: #64748B;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-home a:hover {
+            color: #8B5CF6;
+        }
+
+        .features-included {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .features-included h4 {
+            color: #F1F5F9;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .features-included ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-included li {
+            color: #CBD5E1;
+            font-size: 14px;
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .features-included li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #8B5CF6;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 30px 25px;
+            }
+
+            .logo h1 {
+                font-size: 28px;
+            }
+
+            .plans-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trial-banner h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo">
+            <h1>Sifthen</h1>
+        </div>
+        <p class="subtitle">Create your account and start detecting fraud</p>
+
+        <div class="trial-banner">
+            <h3>🎉 Start Your 14-Day Free Trial</h3>
+            <p>Get 10 free scans • No credit card required to start • Cancel anytime</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="signupForm">
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@company.com" required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+                
+                <div class="password-requirements">
+                    <p>Password must contain:</p>
+                    <ul id="passwordReqs">
+                        <li id="req-length">At least 8 characters</li>
+                        <li id="req-uppercase">One uppercase letter</li>
+                        <li id="req-lowercase">One lowercase letter</li>
+                        <li id="req-number">One number</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Plan Selection -->
+            <div class="plan-selection">
+                <h3>Choose Your Plan</h3>
+                <div class="plans-grid">
+                    <div class="plan-option">
+                        <input type="radio" id="trial" name="plan" value="trial" checked>
+                        <label for="trial" class="plan-card">
+                            <div class="plan-badge">Free Trial</div>
+                            <div class="plan-name">Trial</div>
+                            <div class="plan-price">$0</div>
+                            <div class="plan-period">14 days</div>
+                            <div class="plan-scans">10 scans</div>
+                        </label>
+                    </div>
+
+                    <div class="plan-option">
+                        <input type="radio" id="starter" name="plan" value="starter">
+                        <label for="starter" class="plan-card">
+                            <div class="plan-name">Starter</div>
+                            <div class="plan-price">$39</div>
+                            <div class="plan-period">/month</div>
+                            <div class="plan-scans">30 scans</div>
+                        </label>
+                    </div>
+
+                    <div class="plan-option">
+                        <input type="radio" id="professional" name="plan" value="professional">
+                        <label for="professional" class="plan-card">
+                            <div class="plan-name">Professional</div>
+                            <div class="plan-price">$99</div>
+                            <div class="plan-period">/month</div>
+                            <div class="plan-scans">100 scans</div>
+                        </label>
+                    </div>
+
+                    <div class="plan-option">
+                        <input type="radio" id="business" name="plan" value="business">
+                        <label for="business" class="plan-card">
+                            <div class="plan-name">Business</div>
+                            <div class="plan-price">$199</div>
+                            <div class="plan-period">/month</div>
+                            <div class="plan-scans">2000 scans</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Included -->
+            <div class="features-included">
+                <h4>All plans include:</h4>
+                <ul>
+                    <li>AI resume detection</li>
+                    <li>Email & phone verification</li>
+                    <li>LinkedIn profile analysis</li>
+                    <li>Detailed fraud reports</li>
+                    <li>Email support</li>
+                </ul>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-signup" id="signupBtn">
+                <span id="btnText">Create Account & Continue</span>
+                <div class="loading-spinner" id="spinner"></div>
+            </button>
+
+            <div class="terms">
+                By creating an account, you agree to our<br>
+                <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </div>
+        </form>
+
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Log in</a></p>
+        </div>
+
+        <div class="back-home">
+            <a href="../index.html">← Back to Homepage</a>
+        </div>
+    </div>
+
+    <script>
+        // Password validation
+        const passwordInput = document.getElementById('password');
+        const requirements = {
+            length: document.getElementById('req-length'),
+            uppercase: document.getElementById('req-uppercase'),
+            lowercase: document.getElementById('req-lowercase'),
+            number: document.getElementById('req-number')
+        };
+
+        passwordInput.addEventListener('input', function() {
+            const value = this.value;
+            
+            // Check length
+            if (value.length >= 8) {
+                requirements.length.classList.add('valid');
+            } else {
+                requirements.length.classList.remove('valid');
+            }
+            
+            // Check uppercase
+            if (/[A-Z]/.test(value)) {
+                requirements.uppercase.classList.add('valid');
+            } else {
+                requirements.uppercase.classList.remove('valid');
+            }
+            
+            // Check lowercase
+            if (/[a-z]/.test(value)) {
+                requirements.lowercase.classList.add('valid');
+            } else {
+                requirements.lowercase.classList.remove('valid');
+            }
+            
+            // Check number
+            if (/[0-9]/.test(value)) {
+                requirements.number.classList.add('valid');
+            } else {
+                requirements.number.classList.remove('valid');
+            }
+        });
+
+        // Form submission
+        const signupForm = document.getElementById('signupForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const signupBtn = document.getElementById('signupBtn');
+        const btnText = document.getElementById('btnText');
+        const spinner = document.getElementById('spinner');
+
+        signupForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const plan = document.querySelector('input[name="plan"]:checked').value;
+
+            // Validate password
+            const isValid = 
+                password.length >= 8 &&
+                /[A-Z]/.test(password) &&
+                /[a-z]/.test(password) &&
+                /[0-9]/.test(password);
+
+            if (!isValid) {
+                showError('Please meet all password requirements');
+                return;
+            }
+
+            // Show loading state
+            signupBtn.disabled = true;
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
+            errorMessage.style.display = 'none';
+
+            // Simulate account creation
+            setTimeout(() => {
+                // Store user data (in production, this would be Firebase/backend)
+                const userData = {
+                    name: name,
+                    email: email,
+                    plan: plan,
+                    signupDate: new Date().toISOString(),
+                    trialEnds: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+                    scansRemaining: plan === 'trial' ? 10 : 
+                                   plan === 'starter' ? 30 : 
+                                   plan === 'professional' ? 100 : 2000
+                };
+
+                localStorage.setItem('sifthen_user', JSON.stringify(userData));
+                localStorage.setItem('sifthen_logged_in', 'true');
+
+                // If paid plan selected, redirect to Stripe
+                if (plan !== 'trial') {
+                    window.location.href = 'https://buy.stripe.com/test_28odTocF06MbbZe3cc';
+                } else {
+                    // For trial, go straight to dashboard
+                    window.location.href = 'dashboard.html';
+                }
+            }, 1500);
+        });
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            signupBtn.disabled = false;
+            btnText.style.display = 'inline';
+            spinner.style.display = 'none';
+        }
+
+        // URL parameter handling for pre-selected plans
+        const urlParams = new URLSearchParams(window.location.search);
+        const planParam = urlParams.get('plan');
+        if (planParam) {
+            const planRadio = document.getElementById(planParam);
+            if (planRadio) {
+                planRadio.checked = true;
+            }
+        }
+    </script>
+</body>
+</html>

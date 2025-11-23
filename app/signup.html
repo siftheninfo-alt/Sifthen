@@ -26,7 +26,7 @@
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 50px;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
             border: 1px solid rgba(139, 92, 246, 0.2);
@@ -120,7 +120,7 @@
 
         .plans-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
         }
 
@@ -145,6 +145,7 @@
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
+            height: 100%;
         }
 
         .plan-option input[type="radio"]:checked + .plan-card {
@@ -178,14 +179,14 @@
         .plan-name {
             color: #F1F5F9;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 8px;
         }
 
         .plan-price {
             color: #8B5CF6;
             font-weight: 800;
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 5px;
         }
 
@@ -199,18 +200,18 @@
             color: #CBD5E1;
             font-size: 13px;
             font-weight: 600;
+            margin-bottom: 8px;
         }
 
-        .plan-badge {
-            background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
+        .plan-trial {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
             color: white;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
             display: inline-block;
         }
 
@@ -408,7 +409,7 @@
             }
 
             .plans-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
 
             .trial-banner h3 {
@@ -425,8 +426,8 @@
         <p class="subtitle">Create your account and start detecting fraud</p>
 
         <div class="trial-banner">
-            <h3>🎉 Start Your 14-Day Free Trial</h3>
-            <p>Get 10 free scans • No credit card required to start • Cancel anytime</p>
+            <h3>🎉 14-Day Free Trial on All Plans</h3>
+            <p>No credit card required to start • Cancel anytime</p>
         </div>
 
         <div class="error-message" id="errorMessage"></div>
@@ -465,23 +466,13 @@
                 <h3>Choose Your Plan</h3>
                 <div class="plans-grid">
                     <div class="plan-option">
-                        <input type="radio" id="trial" name="plan" value="trial" checked>
-                        <label for="trial" class="plan-card">
-                            <div class="plan-badge">Free Trial</div>
-                            <div class="plan-name">Trial</div>
-                            <div class="plan-price">$0</div>
-                            <div class="plan-period">14 days</div>
-                            <div class="plan-scans">10 scans</div>
-                        </label>
-                    </div>
-
-                    <div class="plan-option">
-                        <input type="radio" id="starter" name="plan" value="starter">
+                        <input type="radio" id="starter" name="plan" value="starter" checked>
                         <label for="starter" class="plan-card">
                             <div class="plan-name">Starter</div>
                             <div class="plan-price">$39</div>
                             <div class="plan-period">/month</div>
-                            <div class="plan-scans">30 scans</div>
+                            <div class="plan-scans">30 scans/month</div>
+                            <div class="plan-trial">14-Day Free Trial</div>
                         </label>
                     </div>
 
@@ -491,7 +482,8 @@
                             <div class="plan-name">Professional</div>
                             <div class="plan-price">$99</div>
                             <div class="plan-period">/month</div>
-                            <div class="plan-scans">100 scans</div>
+                            <div class="plan-scans">100 scans/month</div>
+                            <div class="plan-trial">14-Day Free Trial</div>
                         </label>
                     </div>
 
@@ -501,7 +493,8 @@
                             <div class="plan-name">Business</div>
                             <div class="plan-price">$199</div>
                             <div class="plan-period">/month</div>
-                            <div class="plan-scans">2000 scans</div>
+                            <div class="plan-scans">2000 scans/month</div>
+                            <div class="plan-trial">14-Day Free Trial</div>
                         </label>
                     </div>
                 </div>
@@ -521,7 +514,7 @@
 
             <!-- Submit Button -->
             <button type="submit" class="btn-signup" id="signupBtn">
-                <span id="btnText">Create Account & Continue</span>
+                <span id="btnText">Start 14-Day Free Trial</span>
                 <div class="loading-spinner" id="spinner"></div>
             </button>
 
@@ -625,21 +618,16 @@
                     plan: plan,
                     signupDate: new Date().toISOString(),
                     trialEnds: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
-                    scansRemaining: plan === 'trial' ? 10 : 
-                                   plan === 'starter' ? 30 : 
+                    scansRemaining: plan === 'starter' ? 30 : 
                                    plan === 'professional' ? 100 : 2000
                 };
 
                 localStorage.setItem('sifthen_user', JSON.stringify(userData));
                 localStorage.setItem('sifthen_logged_in', 'true');
 
-                // If paid plan selected, redirect to Stripe
-                if (plan !== 'trial') {
-                    window.location.href = 'https://buy.stripe.com/test_28odTocF06MbbZe3cc';
-                } else {
-                    // For trial, go straight to dashboard
-                    window.location.href = 'dashboard.html';
-                }
+                // Redirect to Stripe checkout for all plans (all have 14-day trial)
+                window.location.href = 'https://buy.stripe.com/test_28odTocF06MbbZe3cc';
+                
             }, 1500);
         });
 

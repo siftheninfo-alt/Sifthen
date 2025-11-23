@@ -449,61 +449,55 @@
                 return;
             }
 
-            // Read resume file as base64
-            const reader = new FileReader();
-            reader.onload = async (event) => {
-                // Get customer email from localStorage
-                const customerData = JSON.parse(localStorage.getItem('customerData') || '{}');
-                const customerEmail = customerData.email || 'unknown@example.com';
+            // Get customer email from localStorage
+            const customerData = JSON.parse(localStorage.getItem('customerData') || '{}');
+            const customerEmail = customerData.email || 'unknown@example.com';
 
-                const payload = {
-                    Candidate_Name: candidateName,
-                    Email_Address: candidateEmail,
-                    Phone_Number: candidatePhone,
-                    LinkedIn_URL: linkedinUrl || 'N/A',
-                    Resume: resumeFile.name,
-                    Customer_Email: customerEmail,
-                    Submission_Time: new Date().toISOString()
-                };
-
-                // Show processing modal
-                document.getElementById('processingModal').classList.add('show');
-                submitBtn.disabled = true;
-
-                try {
-                    const response = await fetch(WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response.ok) {
-                        // Store scan info for results page
-                        sessionStorage.setItem('lastScan', JSON.stringify({
-                            candidateName: candidateName,
-                            candidateEmail: candidateEmail,
-                            submittedAt: new Date().toISOString()
-                        }));
-
-                        // Redirect to results page after 2 seconds
-                        setTimeout(() => {
-                            window.location.href = 'results.html';
-                        }, 2000);
-                    } else {
-                        throw new Error('Failed to submit candidate');
-                    }
-                } catch (error) {
-                    document.getElementById('processingModal').classList.remove('show');
-                    submitBtn.disabled = false;
-                    errorMessage.textContent = 'Error submitting candidate. Please try again.';
-                    errorMessage.classList.add('show');
-                    console.error('Error:', error);
-                }
+            const payload = {
+                Candidate_Name: candidateName,
+                Email_Address: candidateEmail,
+                Phone_Number: candidatePhone,
+                LinkedIn_URL: linkedinUrl || 'N/A',
+                Resume: resumeFile.name,
+                Customer_Email: customerEmail,
+                Submission_Time: new Date().toISOString()
             };
 
-            reader.readAsDataURL(resumeFile);
+            // Show processing modal
+            document.getElementById('processingModal').classList.add('show');
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    // Store scan info for results page
+                    sessionStorage.setItem('lastScan', JSON.stringify({
+                        candidateName: candidateName,
+                        candidateEmail: candidateEmail,
+                        submittedAt: new Date().toISOString()
+                    }));
+
+                    // Redirect to results page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'results.html';
+                    }, 2000);
+                } else {
+                    throw new Error('Failed to submit candidate');
+                }
+            } catch (error) {
+                document.getElementById('processingModal').classList.remove('show');
+                submitBtn.disabled = false;
+                errorMessage.textContent = 'Error submitting candidate. Please try again.';
+                errorMessage.classList.add('show');
+                console.error('Error:', error);
+            }
         });
 
         function logout() {

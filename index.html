@@ -54,6 +54,11 @@
             background-clip: text;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-links a {
             margin-left: 40px;
             color: #F1F5F9;
@@ -65,6 +70,23 @@
 
         .nav-links a:hover {
             color: #8B5CF6;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #5B21B6 0%, #8B5CF6 100%);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 8px;
+            margin-left: 40px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #6D28D9 0%, #A78BFA 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5);
+            color: white !important;
         }
 
         /* Hero Section */
@@ -843,6 +865,7 @@
                 <a href="#solution">Solution</a>
                 <a href="#how-it-works">How It Works</a>
                 <a href="#pricing">Pricing</a>
+                <a href="app/login.html" class="btn-login">Login</a>
             </div>
         </div>
     </nav>
@@ -855,7 +878,7 @@
             <p class="description">Catch fake resumes, deepfakes, VoIP scams, and fraudulent LinkedIn profiles before you extend an offer. Get detailed reports in 12-24 hours.</p>
             <p class="trial-highlight">Try free for 14 days.</p>
             <div class="cta-buttons">
-                <a href="#pricing" class="btn btn-primary">Start Free 14-Day Trial</a>
+                <a href="app/signup.html" class="btn btn-primary btn-large">Start Free 14-Day Trial</a>
                 <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
             </div>
             <p class="cta-subtext">Cancel anytime</p>
@@ -1053,7 +1076,7 @@
                         <li>One-time payment, no recurring fees</li>
                         <li>Lock in early access pricing forever</li>
                     </ul>
-                    <a href="https://buy.stripe.com/cNi6oJ5Bs2WK2Vga9K1VK00" class="btn-lifetime">Get Lifetime Access Now</a>
+                    <a href="app/signup.html?plan=lifetime" class="btn-lifetime">Get Lifetime Access Now</a>
                 </div>
             </div>
 
@@ -1072,7 +1095,7 @@
                         <li>AI resume detection</li>
                         <li>Detailed PDF reports</li>
                     </ul>
-                    <a href="https://buy.stripe.com/dRmeVf4xo2WK67s95G1VK01" class="btn btn-primary">Start Free 14-Day Trial</a>
+                    <a href="app/signup.html?plan=starter" class="btn btn-primary">Start Free 14-Day Trial</a>
                 </div>
 
                 <div class="pricing-card">
@@ -1080,7 +1103,7 @@
                     <div class="plan-name">Professional</div>
                     <div class="price">$99<span>/month</span></div>
                     <div class="trial-info">after 14-day free trial</div>
-                    <div class="turnaround"> 12 hour turnaround</div>
+                    <div class="turnaround">12 hour turnaround</div>
                     <ul class="plan-features">
                         <li>100 candidate scans/month</li>
                         <li>Everything in Starter</li>
@@ -1088,7 +1111,7 @@
                         <li>Digital footprint analysis</li>
                         <li>Pattern recognition</li>
                     </ul>
-                    <a href="https://buy.stripe.com/5kQeVf8NEfJw7bweq01VK02" class="btn btn-primary">Start Free 14-Day Trial</a>
+                    <a href="app/signup.html?plan=professional" class="btn btn-primary">Start Free 14-Day Trial</a>
                 </div>
                 <div class="pricing-card">
                     <div class="free-trial-badge">14 Days Free</div>
@@ -1103,7 +1126,7 @@
                         <li>Custom integrations</li>
                         <li>Team training</li>
                     </ul>
-                    <a href="https://buy.stripe.com/5kQbJ3fc20OCcvQ6Xy1VK03" class="btn btn-primary">Start Free 14-Day Trial</a>
+                    <a href="app/signup.html?plan=business" class="btn btn-primary">Start Free 14-Day Trial</a>
                 </div>
             </div>
         </div>
@@ -1115,7 +1138,7 @@
             <h2>Ready to Stop Wasting Time on Fake Candidates?</h2>
             <p>Verify your finalists before you hire.</p>
             <p class="trial-text">Try free for 14 days • Cancel anytime</p>
-            <a href="#pricing" class="btn btn-primary">Start Free 14-Day Trial</a>
+            <a href="app/signup.html" class="btn btn-primary btn-large">Start Free 14-Day Trial</a>
         </div>
     </section>
 
@@ -1132,6 +1155,7 @@
                     <a href="#solution">Features</a>
                     <a href="#pricing">Pricing</a>
                     <a href="#how-it-works">How It Works</a>
+                    <a href="app/login.html">Login</a>
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
@@ -1145,8 +1169,3 @@
     </footer>
 </body>
 </html>
-
-
-
-
-

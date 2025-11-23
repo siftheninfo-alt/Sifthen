@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sifthen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-purple: #7C3AED;
+            --dark-navy: #1a1f3a;
+            --darker-navy: #13172a;
+            --card-bg: #242b4a;
+            --border-color: #374151;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --danger-red: #ef4444;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--dark-navy);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--darker-navy);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .forgot-password a {
+            color: var(--primary-purple);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .forgot-password a:hover {
+            opacity: 0.8;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-purple);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1.5rem;
+        }
+
+        .btn-login:hover:not(:disabled) {
+            background: #6d28d9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger-red);
+            padding: 0.875rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-message p {
+            color: #fca5a5;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .signup-link a {
+            color: var(--primary-purple);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .signup-link a:hover {
+            opacity: 0.8;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-to-home a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-to-home a:hover {
+            color: var(--primary-purple);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .logo h1 {
+                font-size: 1.75rem;
+            }
+
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Logo -->
+        <div class="logo">
+            <h1>Sifthen</h1>
+            <p>Catch fake candidates before they waste your time</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your account</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                <p id="errorText"></p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="you@company.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    >
+                    <div class="forgot-password">
+                        <a href="forgot-password.html">Forgot password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login" id="loginButton">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Create one free</a>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="back-to-home">
+            <a href="../index.html">← Back to Homepage</a>
+        </div>
+    </div>
+
+    <script>
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const loginButton = document.getElementById('loginButton');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+
+            // Hide previous errors
+            errorMessage.classList.remove('show');
+
+            // Validate inputs
+            if (!email || !password) {
+                showError('Please enter both email and password');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+
+            // Show loading state
+            loginButton.disabled = true;
+            loginButton.innerHTML = '<span class="spinner"></span>Signing in...';
+
+            try {
+                // TODO: Connect to Firebase Authentication
+                // For now, simulate API call
+                await simulateLogin(email, password);
+
+                // Success - redirect to dashboard
+                window.location.href = 'dashboard.html';
+
+            } catch (error) {
+                showError(error.message || 'Login failed. Please try again.');
+                loginButton.disabled = false;
+                loginButton.innerHTML = 'Sign In';
+            }
+        });
+
+        // Simulate login (will be replaced with Firebase)
+        async function simulateLogin(email, password) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    // Check if user exists in localStorage (demo mode)
+                    const storedUser = localStorage.getItem('sifthen_user_' + email);
+                    
+                    if (storedUser) {
+                        const user = JSON.parse(storedUser);
+                        
+                        // In real app, password would be hashed
+                        if (user.password === password) {
+                            // Store session
+                            localStorage.setItem('sifthen_user', JSON.stringify({
+                                id: user.id,
+                                email: user.email,
+                                name: user.name,
+                                plan: user.plan
+                            }));
+                            resolve();
+                        } else {
+                            reject(new Error('Invalid email or password'));
+                        }
+                    } else {
+                        // Demo: Accept any email/password for testing
+                        // Remove this in production!
+                        localStorage.setItem('sifthen_user', JSON.stringify({
+                            id: 'demo-' + Date.now(),
+                            email: email,
+                            name: email.split('@')[0],
+                            plan: 'trial'
+                        }));
+                        resolve();
+                    }
+                }, 1000); // Simulate network delay
+            });
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        // Check if already logged in
+        window.addEventListener('DOMContentLoaded', function() {
+            const user = localStorage.getItem('sifthen_user');
+            if (user) {
+                // Already logged in, redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

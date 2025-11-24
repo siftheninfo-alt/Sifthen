@@ -486,7 +486,7 @@
 
                     // Redirect to results page after 2 seconds
                     setTimeout(() => {
-                        window.location.href = 'results.html?email=' + encodeURIComponent(candidateEmail);
+                       window.location.href = '/app/results.html?email=' + encodeURIComponent(candidateEmail);
                     }, 2000);
                 } else {
                     throw new Error('Failed to submit candidate');

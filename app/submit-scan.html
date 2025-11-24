@@ -449,6 +449,9 @@
                 return;
             }
 
+            // Clean phone number - remove spaces, dashes, parentheses, dots
+            const cleanPhone = candidatePhone.replace(/[\s\-\(\)\.]/g, '');
+
             // Get customer email from localStorage
             const customerData = JSON.parse(localStorage.getItem('customerData') || '{}');
             const customerEmail = customerData.email || 'unknown@example.com';
@@ -456,7 +459,7 @@
             const payload = {
                 Candidate_Name: candidateName,
                 Email_Address: candidateEmail,
-                Phone_Number: candidatePhone,
+                Phone_Number: cleanPhone,
                 LinkedIn_URL: linkedinUrl || 'N/A',
                 Resume: resumeFile.name,
                 Customer_Email: customerEmail,

@@ -313,7 +313,6 @@
                         <input 
                             type="text" 
                             id="candidateName" 
-                            name="Candidate_Name" 
                             placeholder="John Doe"
                             required
                         >
@@ -326,7 +325,6 @@
                         <input 
                             type="email" 
                             id="candidateEmail" 
-                            name="Email_Address" 
                             placeholder="john@example.com"
                             required
                         >
@@ -337,7 +335,6 @@
                         <input 
                             type="tel" 
                             id="candidatePhone" 
-                            name="Phone_Number" 
                             placeholder="+1 (555) 123-4567"
                             required
                         >
@@ -350,7 +347,6 @@
                         <input 
                             type="url" 
                             id="linkedinUrl" 
-                            name="LinkedIn_URL" 
                             placeholder="https://linkedin.com/in/johndoe"
                         >
                     </div>
@@ -363,7 +359,6 @@
                             <input 
                                 type="file" 
                                 id="resume" 
-                                name="Resume"
                                 accept=".pdf,.doc,.docx,.txt"
                                 required
                             >
@@ -391,107 +386,69 @@
     </div>
 
     <script>
-        // Supabase credentials
         const SUPABASE_URL = 'https://zgbsaorupvblcfytrhrb.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnYnNhb3J1cHZibGNmeXRyaHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4Njc5NjAsImV4cCI6MjA3OTQ0Mzk2MH0.sJDq7g7iPLE6As2D4zD0ggtPPU02j434yVx1sdABQyo';
 
-        // File upload handling
         document.getElementById('resume').addEventListener('change', function(e) {
             const fileName = e.target.files[0]?.name || '';
             document.getElementById('fileName').textContent = fileName ? `✓ ${fileName}` : '';
         });
 
-        // Drag and drop
-        const fileLabel = document.querySelector('.file-input-label');
-        
-        fileLabel.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            fileLabel.style.borderColor = '#8b5cf6';
-            fileLabel.style.background = 'rgba(139, 92, 246, 0.2)';
-        });
-
-        fileLabel.addEventListener('dragleave', () => {
-            fileLabel.style.borderColor = 'rgba(139, 92, 246, 0.3)';
-            fileLabel.style.background = 'rgba(255, 255, 255, 0.08)';
-        });
-
-        fileLabel.addEventListener('drop', (e) => {
-            e.preventDefault();
-            fileLabel.style.borderColor = 'rgba(139, 92, 246, 0.3)';
-            fileLabel.style.background = 'rgba(255, 255, 255, 0.08)';
-            
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                document.getElementById('resume').files = files;
-                document.getElementById('fileName').textContent = `✓ ${files[0].name}`;
-            }
-        });
-
-        // Form submission
         document.getElementById('submitScanForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const errorMessage = document.getElementById('errorMessage');
             errorMessage.classList.remove('show');
 
-            const form = e.target;
-            const submitBtn = document.getElementById('submitBtn');
-            
-            // Get form data
             const candidateName = document.getElementById('candidateName').value;
             const candidateEmail = document.getElementById('candidateEmail').value;
             const candidatePhone = document.getElementById('candidatePhone').value;
             const linkedinUrl = document.getElementById('linkedinUrl').value;
             const resumeFile = document.getElementById('resume').files[0];
 
-            // Validate
             if (!candidateName || !candidateEmail || !candidatePhone || !resumeFile) {
                 errorMessage.textContent = 'Please fill in all required fields.';
                 errorMessage.classList.add('show');
                 return;
             }
 
-            // Get customer email from localStorage
             const customerData = JSON.parse(localStorage.getItem('customerData') || '{}');
             const customerEmail = customerData.email || 'unknown@example.com';
 
-            const payload = {
-                Candidate_Name: candidateName,
-                Email_Address: candidateEmail,
-                Phone_Number: candidatePhone,
-                LinkedIn_URL: linkedinUrl || 'N/A',
-                Resume: resumeFile.name,
-                Customer_Email: customerEmail,
-                Submission_Time: new Date().toISOString()
-            };
-
-            // Show processing modal
             document.getElementById('processingModal').classList.add('show');
-            submitBtn.disabled = true;
+            document.getElementById('submitBtn').disabled = true;
 
             try {
-                // Call Vercel Function to validate candidate with APIs
-                const validationResponse = await fetch('/api/validate-candidate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        candidateName: candidateName,
-                        candidateEmail: candidateEmail,
-                        candidatePhone: candidatePhone,
-                        linkedinUrl: linkedinUrl,
-                        resumeText: 'Resume submitted for analysis'
-                    })
-                });
+                const resumeText = await resumeFile.text();
 
-                const validationData = await validationResponse.json();
+                // Call Supabase Edge Function to validate
+                const validationResponse = await fetch(
+                    `${SUPABASE_URL}/functions/v1/validate-candidate`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        },
+                        body: JSON.stringify({
+                            candidateEmail,
+                            candidatePhone,
+                            resumeText
+                        })
+                    }
+                ).then(r => r.json());
 
-                if (!validationResponse.ok) {
-                    throw new Error(validationData.error || 'Validation failed');
+                if (!validationResponse.success) {
+                    throw new Error(validationResponse.error || 'Validation failed');
                 }
 
-                // Now save to Supabase with validation results
+                const riskScore = validationResponse.riskScore;
+                const riskLevel = validationResponse.riskLevel;
+                const emailStatus = validationResponse.emailStatus;
+                const phoneStatus = validationResponse.phoneStatus;
+                const aiReasoning = validationResponse.aiAnalysis;
+                const aiProbability = validationResponse.aiProbability;
+
                 const supabaseResponse = await fetch(`${SUPABASE_URL}/rest/v1/scans`, {
                     method: 'POST',
                     headers: {
@@ -506,30 +463,38 @@
                         candidate_phone: candidatePhone,
                         candidate_linkedin: linkedinUrl || null,
                         status: 'complete',
-                        risk_level: validationData.riskLevel,
-                        risk_score: validationData.riskScore,
-                        email_status: validationData.emailStatus,
-                        phone_status: validationData.phoneStatus,
-                        ai_analysis: validationData.aiAnalysis,
-                        details: validationData.details
+                        risk_level: riskLevel,
+                        risk_score: Math.min(100, riskScore),
+                        email_status: emailValidation.is_valid_format ? 'Valid email format' : 'Invalid email format',
+                        phone_status: phoneValidation.valid ? (phoneValidation.type === 'voip' ? 'VoIP/Suspicious' : 'Valid phone') : 'Invalid phone',
+                        ai_analysis: aiReasoning,
+                        details: `Email: ${emailValidation.is_valid_format ? '✓' : '✗'} | Phone: ${phoneValidation.valid ? '✓' : '✗'} | AI Resume: ${aiProbability > 50 ? '⚠️ Possible AI' : '✓ Human-written'}`
                     })
                 });
 
                 if (supabaseResponse.ok) {
-                    // Store results for results page
-                    sessionStorage.setItem('candidateResults', JSON.stringify(validationData));
+                    sessionStorage.setItem('candidateResults', JSON.stringify({
+                        candidateName,
+                        candidateEmail,
+                        riskScore: Math.min(100, riskScore),
+                        riskLevel,
+                        emailStatus: emailValidation.is_valid_format ? 'Valid email format' : 'Invalid email format',
+                        phoneStatus: phoneValidation.valid ? (phoneValidation.type === 'voip' ? 'VoIP/Suspicious' : 'Valid phone') : 'Invalid phone',
+                        aiAnalysis: aiReasoning,
+                        details: `Email: ${emailValidation.is_valid_format ? '✓' : '✗'} | Phone: ${phoneValidation.valid ? '✓' : '✗'} | AI Resume: ${aiProbability > 50 ? '⚠️ Possible AI' : '✓ Human-written'}`
+                    }));
                     
-                    // Redirect to results page after 2 seconds
                     setTimeout(() => {
                         window.location.href = './results.html?email=' + encodeURIComponent(candidateEmail);
                     }, 2000);
                 } else {
                     throw new Error('Failed to save results');
                 }
+
             } catch (error) {
                 document.getElementById('processingModal').classList.remove('show');
-                submitBtn.disabled = false;
-                errorMessage.textContent = 'Error submitting candidate. Please try again.';
+                document.getElementById('submitBtn').disabled = false;
+                errorMessage.textContent = 'Error: ' + error.message;
                 errorMessage.classList.add('show');
                 console.error('Error:', error);
             }

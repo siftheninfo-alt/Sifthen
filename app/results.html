@@ -390,7 +390,9 @@
     </div>
 
     <script>
-        // Function to get query parameter
+        // Supabase credentials
+        const SUPABASE_URL = 'https://zgbsaorupvblcfytrhrb.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnYnNhb3J1cHZibGNmeXRyaHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4Njc5NjAsImV4cCI6MjA3OTQ0Mzk2MH0.sJDq7g7iPLE6As2D4zD0ggtPPU02j434yVx1sdABQyo';
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -459,27 +461,43 @@
                     candidateEmail: email,
                     riskScore: 0,
                     riskLevel: 'Pending',
-                    aiAnalysis: 'Results are still being processed. This may take a few moments as fraud detection checks are running.',
-                    details: 'Please refresh the page in a moment to see the updated results. Your fraud detection scenario is processing the data.'
+                    aiAnalysis: 'Results are still being processed. Fraud detection checks may take a few moments.',
+                    details: 'Please refresh the page to check for updated results.'
                 });
                 return;
             }
 
-            // Simulate checking for results (in production, query your database/Sheets API)
-            // For now, display a message that checks are running
-            setTimeout(() => {
-                displayResults({
-                    candidateName: 'Candidate',
-                    candidateEmail: email,
-                    riskScore: 0,
-                    riskLevel: 'Processing',
-                    aiAnalysis: 'Fraud detection checks are running. Make.com is analyzing email validation, phone validation, and AI-generated resume detection.',
-                    details: 'Results will appear here once all checks complete. Check your Google Sheets to see live updates.'
-                });
-                
-                // Continue polling
-                pollForResults(email, attempts - 1);
-            }, 3000);
+            // Fetch latest scan for this candidate from Supabase
+            fetch(`${SUPABASE_URL}/rest/v1/scans?candidate_email=eq.${encodeURIComponent(email)}&order=created_at.desc&limit=1`, {
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    const scan = data[0];
+                    displayResults({
+                        candidateName: scan.candidate_name || 'Candidate',
+                        candidateEmail: scan.candidate_email,
+                        riskScore: scan.risk_score || 0,
+                        riskLevel: scan.risk_level || 'Pending',
+                        aiAnalysis: scan.ai_analysis || 'Fraud detection in progress...',
+                        details: scan.details || 'Waiting for analysis to complete.',
+                        emailStatus: scan.email_status || 'Checking...',
+                        phoneStatus: scan.phone_status || 'Checking...'
+                    });
+                } else {
+                    // Keep polling
+                    setTimeout(() => pollForResults(email, attempts - 1), 2000);
+                }
+            })
+            .catch(err => {
+                console.log('Checking for results...', err);
+                // Continue polling even if there's an error
+                setTimeout(() => pollForResults(email, attempts - 1), 2000);
+            });
         }
 
         function displayResults(data) {

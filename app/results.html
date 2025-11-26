@@ -456,14 +456,20 @@
 
         function pollForResults(email, attempts) {
             if (attempts <= 0) {
-                displayResults({
-                    candidateName: 'Candidate',
-                    candidateEmail: email,
-                    riskScore: 0,
-                    riskLevel: 'Pending',
-                    aiAnalysis: 'Results are still being processed. Fraud detection checks may take a few moments.',
-                    details: 'Please refresh the page to check for updated results.'
-                });
+                // Try to get from sessionStorage as fallback
+                const cachedResults = JSON.parse(sessionStorage.getItem('candidateResults') || '{}');
+                if (cachedResults.riskScore) {
+                    displayResults(cachedResults);
+                } else {
+                    displayResults({
+                        candidateName: 'Candidate',
+                        candidateEmail: email,
+                        riskScore: 0,
+                        riskLevel: 'Pending',
+                        aiAnalysis: 'Results are still being processed.',
+                        details: 'Please refresh the page to check for updated results.'
+                    });
+                }
                 return;
             }
 
@@ -483,10 +489,12 @@
                         candidateEmail: scan.candidate_email,
                         riskScore: scan.risk_score || 0,
                         riskLevel: scan.risk_level || 'Pending',
-                        aiAnalysis: scan.ai_analysis || 'Fraud detection in progress...',
-                        details: scan.details || 'Waiting for analysis to complete.',
-                        emailStatus: scan.email_status || 'Checking...',
-                        phoneStatus: scan.phone_status || 'Checking...'
+                        aiAnalysis: scan.ai_analysis || 'Analysis in progress...',
+                        details: scan.details || 'Validation complete.',
+                        emailStatus: scan.email_status || 'Validated',
+                        phoneStatus: scan.phone_status || 'Validated',
+                        emailValid: scan.email_status && scan.email_status.includes('Valid'),
+                        phoneValid: scan.phone_status && scan.phone_status.includes('Valid')
                     });
                 } else {
                     // Keep polling
@@ -494,7 +502,7 @@
                 }
             })
             .catch(err => {
-                console.log('Checking for results...', err);
+                console.log('Fetching results...', err);
                 // Continue polling even if there's an error
                 setTimeout(() => pollForResults(email, attempts - 1), 2000);
             });

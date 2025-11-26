@@ -455,21 +455,22 @@
         }
 
         function pollForResults(email, attempts) {
+            // Check sessionStorage first (from submit-scan)
+            const cachedResults = JSON.parse(sessionStorage.getItem('candidateResults') || '{}');
+            if (cachedResults.riskScore !== undefined) {
+                displayResults(cachedResults);
+                return;
+            }
+
             if (attempts <= 0) {
-                // Try to get from sessionStorage as fallback
-                const cachedResults = JSON.parse(sessionStorage.getItem('candidateResults') || '{}');
-                if (cachedResults.riskScore) {
-                    displayResults(cachedResults);
-                } else {
-                    displayResults({
-                        candidateName: 'Candidate',
-                        candidateEmail: email,
-                        riskScore: 0,
-                        riskLevel: 'Pending',
-                        aiAnalysis: 'Results are still being processed.',
-                        details: 'Please refresh the page to check for updated results.'
-                    });
-                }
+                displayResults({
+                    candidateName: 'Candidate',
+                    candidateEmail: email,
+                    riskScore: 0,
+                    riskLevel: 'Pending',
+                    aiAnalysis: 'Results are still being processed.',
+                    details: 'Please refresh the page to check for updated results.'
+                });
                 return;
             }
 

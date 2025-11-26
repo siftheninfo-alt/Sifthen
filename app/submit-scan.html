@@ -338,7 +338,7 @@
                             type="tel" 
                             id="candidatePhone" 
                             name="Phone_Number" 
-                            placeholder="555-123-4567"
+                            placeholder="+1 (555) 123-4567"
                             required
                         >
                     </div>
@@ -391,7 +391,9 @@
     </div>
 
     <script>
-        const WEBHOOK_URL = 'https://hook.us2.make.com/oudjkwjloxtesxrw3mpaiwsn9ipesyz3';
+        // Supabase credentials
+        const SUPABASE_URL = 'https://zgbsaorupvblcfytrhrb.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnYnNhb3J1cHZibGNmeXRyaHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4Njc5NjAsImV4cCI6MjA3OTQ0Mzk2MH0.sJDq7g7iPLE6As2D4zD0ggtPPU02j434yVx1sdABQyo';
 
         // File upload handling
         document.getElementById('resume').addEventListener('change', function(e) {
@@ -449,9 +451,6 @@
                 return;
             }
 
-            // Clean phone number - remove spaces, dashes, parentheses, dots
-            const cleanPhone = candidatePhone.replace(/[\s\-\(\)\.]/g, '');
-
             // Get customer email from localStorage
             const customerData = JSON.parse(localStorage.getItem('customerData') || '{}');
             const customerEmail = customerData.email || 'unknown@example.com';
@@ -459,7 +458,7 @@
             const payload = {
                 Candidate_Name: candidateName,
                 Email_Address: candidateEmail,
-                Phone_Number: cleanPhone,
+                Phone_Number: candidatePhone,
                 LinkedIn_URL: linkedinUrl || 'N/A',
                 Resume: resumeFile.name,
                 Customer_Email: customerEmail,
@@ -471,25 +470,29 @@
             submitBtn.disabled = true;
 
             try {
-                const response = await fetch(WEBHOOK_URL, {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/scans`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
                     },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        customer_email: customerEmail,
+                        candidate_name: candidateName,
+                        candidate_email: candidateEmail,
+                        candidate_phone: candidatePhone,
+                        candidate_linkedin: linkedinUrl || null,
+                        status: 'pending',
+                        risk_level: 'pending',
+                        risk_score: 0
+                    })
                 });
 
                 if (response.ok) {
-                    // Store scan info for results page
-                    sessionStorage.setItem('lastScan', JSON.stringify({
-                        candidateName: candidateName,
-                        candidateEmail: candidateEmail,
-                        submittedAt: new Date().toISOString()
-                    }));
-
                     // Redirect to results page after 2 seconds
                     setTimeout(() => {
-                       window.location.href = '/app/results.html?email=' + encodeURIComponent(candidateEmail);
+                        window.location.href = './results.html?email=' + encodeURIComponent(candidateEmail);
                     }, 2000);
                 } else {
                     throw new Error('Failed to submit candidate');

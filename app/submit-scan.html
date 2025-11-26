@@ -470,7 +470,29 @@
             submitBtn.disabled = true;
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/scans`, {
+                // Call Vercel Function to validate candidate with APIs
+                const validationResponse = await fetch('/api/validate-candidate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        candidateName: candidateName,
+                        candidateEmail: candidateEmail,
+                        candidatePhone: candidatePhone,
+                        linkedinUrl: linkedinUrl,
+                        resumeText: 'Resume submitted for analysis'
+                    })
+                });
+
+                const validationData = await validationResponse.json();
+
+                if (!validationResponse.ok) {
+                    throw new Error(validationData.error || 'Validation failed');
+                }
+
+                // Now save to Supabase with validation results
+                const supabaseResponse = await fetch(`${SUPABASE_URL}/rest/v1/scans`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -483,19 +505,26 @@
                         candidate_email: candidateEmail,
                         candidate_phone: candidatePhone,
                         candidate_linkedin: linkedinUrl || null,
-                        status: 'pending',
-                        risk_level: 'pending',
-                        risk_score: 0
+                        status: 'complete',
+                        risk_level: validationData.riskLevel,
+                        risk_score: validationData.riskScore,
+                        email_status: validationData.emailStatus,
+                        phone_status: validationData.phoneStatus,
+                        ai_analysis: validationData.aiAnalysis,
+                        details: validationData.details
                     })
                 });
 
-                if (response.ok) {
+                if (supabaseResponse.ok) {
+                    // Store results for results page
+                    sessionStorage.setItem('candidateResults', JSON.stringify(validationData));
+                    
                     // Redirect to results page after 2 seconds
                     setTimeout(() => {
                         window.location.href = './results.html?email=' + encodeURIComponent(candidateEmail);
                     }, 2000);
                 } else {
-                    throw new Error('Failed to submit candidate');
+                    throw new Error('Failed to save results');
                 }
             } catch (error) {
                 document.getElementById('processingModal').classList.remove('show');
